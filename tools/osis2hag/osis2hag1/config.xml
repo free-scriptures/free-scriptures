@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2014  Stephan Kreutzer
+
+This file is part of Free Scriptures.
+
+Free Scriptures is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3 or any later version,
+as published by the Free Software Foundation.
+
+Free Scriptures is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License 3 for more details.
+
+You should have received a copy of the GNU Affero General Public License 3
+along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<osis2hag1-config>
+  <in>
+    <inOSISFile>./osis.xml</inOSISFile>
+    <osisSchemaValidation>true</osisSchemaValidation>
+    <!-- javax.xml.stream.isValidating: Turns on/off implementation specific DTD validation. -->
+    <xmlReaderDTDValidation>true</xmlReaderDTDValidation>
+    <!-- javax.xml.stream.isNamespaceAware: Turns on/off namespace processing for XML 1.0 support. -->
+    <xmlReaderNamespaceProcessing>true</xmlReaderNamespaceProcessing>
+    <!-- javax.xml.stream.isCoalescing: Requires the processor to coalesce adjacent character data. -->
+    <xmlReaderCoalesceAdjacentCharacterData>true</xmlReaderCoalesceAdjacentCharacterData>
+    <!-- javax.xml.stream.isReplacingEntityReferences: replace internal entity references with their replacement text and report them as characters. -->
+    <!-- Always true! -->
+    <!-- javax.xml.stream.isSupportingExternalEntities: Resolve external parsed entities. -->
+    <xmlReaderResolveExternalParsedEntities>true</xmlReaderResolveExternalParsedEntities>
+    <!-- javax.xml.stream.supportDTD: Use this property to request processors that do not support DTDs. -->
+    <xmlReaderUseDTDFallback>false</xmlReaderUseDTDFallback>
+  </in>
+  <out>
+    <outHaggaiFile>./haggai.xml</outHaggaiFile>
+    <title>Bible text in Haggai XML</title>
+  </out>
+</osis2hag1-config>

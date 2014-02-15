@@ -1,0 +1,79 @@
+Copyright (C) 2014  Stephan Kreutzer
+
+This file is part of Free Scriptures.
+
+Free Scriptures is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3 or any
+later version, as published by the Free Software Foundation.
+
+Free Scriptures is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License 3 for more details.
+
+You should have received a copy of the GNU Affero General Public License 3
+along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
+
+
+
+Description
+-----------
+
+osis2hag1 is a tool to convert valid OSIS 2.1.1 files to Haggai XML 20130620 (haggai_3.0.0.9.1). It is provided by http://www.free-scriptures.org.
+
+
+Requirements
+------------
+
+A proper Java SDK must be installed to produce the *.class files. The source code is at least compatible with Java 1.6 (OpenJDK).
+
+
+Installation
+------------
+
+Type
+
+    make
+    make install
+
+in the directory containing the package's source code. By default, 'make install' installs the osis2hag1 program files in '/usr/local/bin/osis2hag1/'. You may specify an installation prefix other than '/usr/local/' by giving 'make' the option 'PREFIX'. Example:
+
+    make install PREFIX=~/
+
+You may also set the /bin directory manually:
+
+    make install BINDIR=~/my_bin/  <-- custom /bin
+
+
+Execution
+---------
+
+Type
+
+    java osis2hag1 config-file
+
+Either your working directory has to be 'BINDIR/osis2hag1/', or the CLASSPATH environment variable must contain it.
+
+
+Usage
+-----
+
+The transformation process is driven by the XML-based configuration file, which needs to be passed as argument for the program call. The osis2hag1 software package contains an example 'config.xml', where <xmlSchemaValidation> should be always set to 'true', for which to take effect
+
+    http://www.crosswire.org/osis/osisCore.2.1.1.xsd
+    http://www.free-scriptures.org/tools/haggai_20130620.xsd
+
+should be downloaded and saved in the osis2hag1 installation directory. It might only be set to 'false', if the input OSIS file got already validated and wasn't changed since.
+
+
+Missing features, TODOs
+-----------------------
+
+Output validation according to Haggai XML schema, converting book titles, more OSIS features, basic Haggai XML metadata. Note that this tool is a very basic, early version; far from recognizing all OSIS features which could be represented within Haggai XML.
+
+
+Contact
+-------
+
+See http://www.free-scriptures.org/index.php?page=contact or http://www.free-scriptures.org/forum/ (where guests have write access).
+
