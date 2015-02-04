@@ -68,7 +68,7 @@ public class osis2html1
                          "under certain conditions. See the GNU Affero General Public\n" +
                          "License 3 or any later version for details. Also, see the source code\n" +
                          "repository https://github.com/free-scriptures/free-scriptures/\n" +
-                         "or the project website http://www.free-scriptures.org.\n\n");
+                         "and the project website http://www.free-scriptures.org.\n\n");
 
         String programPath = osis2html1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 

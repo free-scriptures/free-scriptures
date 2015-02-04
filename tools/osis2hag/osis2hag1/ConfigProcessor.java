@@ -1,4 +1,4 @@
-/* Copyright (C) 2014  Stephan Kreutzer
+/* Copyright (C) 2014-2015  Stephan Kreutzer
  *
  * This file is part of Free Scriptures.
  *
@@ -96,10 +96,15 @@ class ConfigProcessor
                             {
                                 System.out.print("osis2hag1: Multiple OSIS input files specified. Last one wins.\n");
                             }
-                        
-                            File inFile = new File(this.configFile.getAbsoluteFile().getParent() +
-                                                   System.getProperty("file.separator") +
-                                                   event.asCharacters().getData());
+
+                            File inFile = new File(event.asCharacters().getData());
+                            
+                            if (inFile.isAbsolute() != true)
+                            {
+                                inFile = new File(this.configFile.getAbsoluteFile().getParent() +
+                                                  File.separator +
+                                                  event.asCharacters().getData());
+                            }
 
                             if (inFile.exists() != true)
                             {
@@ -133,9 +138,14 @@ class ConfigProcessor
                                 System.out.print("osis2hag1: Multiple Haggai XML output files specified. Last one wins.\n");
                             }
 
-                            this.outHaggaiFile = new File(this.configFile.getAbsoluteFile().getParent() +
-                                                          System.getProperty("file.separator") +
-                                                          event.asCharacters().getData());
+                            this.outHaggaiFile = new File(event.asCharacters().getData());
+                            
+                            if (this.outHaggaiFile.isAbsolute() != true)
+                            {
+                                this.outHaggaiFile = new File(this.configFile.getAbsoluteFile().getParent() +
+                                                              File.separator +
+                                                              event.asCharacters().getData());
+                            }
                         }
                     }
                     else if (tagName.equalsIgnoreCase("title") == true)

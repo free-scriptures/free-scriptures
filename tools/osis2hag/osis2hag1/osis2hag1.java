@@ -1,4 +1,4 @@
-/* Copyright (C) 2014  Stephan Kreutzer
+/* Copyright (C) 2014-2015  Stephan Kreutzer
  *
  * This file is part of Free Scriptures.
  *
@@ -38,13 +38,13 @@ class osis2hag1
 {
     public static void main(String args[])
     {
-        System.out.print("osis2hag1  Copyright (C) 2014  Stephan Kreutzer\n" +
+        System.out.print("osis2hag1  Copyright (C) 2014-2015  Stephan Kreutzer\n" +
                          "This program comes with ABSOLUTELY NO WARRANTY.\n" +
                          "This is free software, and you are welcome to redistribute it\n" +
                          "under certain conditions. See the GNU Affero General Public\n" +
-                         "License 3 or any later version for details. Also, see\n" +
-                         "http://www.free-scriptures.org and the source code repository\n"+
-                         "at http://sourceforge.net/projects/freiebibel/.\n\n");
+                         "License 3 or any later version for details. Also, see the source code\n" +
+                         "repository https://github.com/free-scriptures/free-scriptures/\n" +
+                         "and the project website http://www.free-scriptures.org.\n\n");
 
         if (args.length != 1)
         {
