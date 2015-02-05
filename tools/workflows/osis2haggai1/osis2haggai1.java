@@ -16,7 +16,7 @@
  */
 /**
  * @file $/workflows/osis2haggai1/osis2haggai1.java
- * @brief Workflow to automatically process a OSIS file to HTML.
+ * @brief Workflow to automatically process an OSIS file to Haggai XML.
  * @author Stephan Kreutzer
  * @since 2015-02-03
  */
@@ -32,29 +32,7 @@ import java.io.OutputStreamWriter;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-/*
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.FileOutputStream;
-
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-
-import java.util.StringTokenizer;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.NamedNodeMap;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
-*/
 
 
 
@@ -80,7 +58,7 @@ public class osis2haggai1
         }
         else
         {
-            ProcessBuilder builder = new ProcessBuilder("java", "file_picker1", programPath + "config_file_picker1.xml");
+            ProcessBuilder builder = new ProcessBuilder("java", "file_picker1", programPath + "config_file_picker1_in.xml");
             builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "gui" + File.separator + "file_picker" + File.separator + "file_picker1"));
             builder.redirectErrorStream(true);
 
@@ -118,7 +96,7 @@ public class osis2haggai1
 
         if (osisFile == null)
         {
-            System.out.println("osis2haggai1 workflow: No input OSIS file.");
+            System.out.println("osis2haggai1 workflow: No input OSIS file specified.");
             System.exit(-1);
         }
 
@@ -362,6 +340,123 @@ public class osis2haggai1
         {
             System.out.println("osis2haggai1 workflow: The conversion from OSIS file '" + osisFile.getAbsolutePath() + "' to Haggai XML failed.");
             System.exit(1);
-        }        
+        }
+
+
+        File outFile = null;
+
+        if (args.length >= 2)
+        {
+            outFile = new File(args[1]);
+        }
+        else
+        {
+            builder = new ProcessBuilder("java", "file_picker1", programPath + "config_file_picker1_out.xml", osisFile.getAbsoluteFile().getParent());
+            builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "gui" + File.separator + "file_picker" + File.separator + "file_picker1"));
+            builder.redirectErrorStream(true);
+
+            try
+            {
+                Process process = builder.start();
+                Scanner scanner = new Scanner(process.getInputStream()).useDelimiter("\n");
+                
+                while (scanner.hasNext() == true)
+                {
+                    String line = scanner.next();
+                    
+                    System.out.println(line);
+                    
+                    if (line.contains("' selected.") == true)
+                    {
+                        StringTokenizer tokenizer = new StringTokenizer(line, "'");
+                        
+                        if (tokenizer.countTokens() >= 2)
+                        {
+                            tokenizer.nextToken();
+                            outFile = new File(tokenizer.nextToken());
+                        }
+                    }
+                }
+                
+                scanner.close();
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+                System.exit(-1);
+            }
+        }
+
+        if (outFile == null)
+        {
+            System.out.println("osis2haggai1 workflow: No output Haggai XML file specified.");
+            System.exit(-1);
+        }
+
+        if (outFile.exists() == true)
+        {
+            if (outFile.isFile() != true)
+            {
+                System.out.print("osis2haggai1 workflow: Haggai XML output path '" + outFile.getAbsolutePath() + "' isn't a file.\n");
+                System.exit(-1);
+            }
+        }
+        
+        CopyFileBinary(haggaiFile, outFile);
+    }
+
+    public static int CopyFileBinary(File from, File to)
+    {
+        if (from.exists() != true)
+        {
+            System.out.println("osis2haggai1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' doesn't exist.");
+            return -1;
+        }
+        
+        if (from.isFile() != true)
+        {
+            System.out.println("osis2haggai1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't a file.");
+            return -2;
+        }
+        
+        if (from.canRead() != true)
+        {
+            System.out.println("osis2haggai1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't readable.");
+            return -3;
+        }
+    
+    
+        byte[] buffer = new byte[1024];
+
+        try
+        {
+            to.createNewFile();
+
+            FileInputStream reader = new FileInputStream(from);
+            FileOutputStream writer = new FileOutputStream(to);
+            
+            int bytesRead = reader.read(buffer, 0, buffer.length);
+            
+            while (bytesRead > 0)
+            {
+                writer.write(buffer, 0, bytesRead);
+                bytesRead = reader.read(buffer, 0, buffer.length);
+            }
+            
+            writer.close();
+            reader.close();
+        }
+        catch (FileNotFoundException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+    
+        return 0;
     }
 }
