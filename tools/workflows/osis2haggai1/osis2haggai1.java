@@ -1,21 +1,21 @@
 /* Copyright (C) 2015  Stephan Kreutzer
  *
- * This file is part of osis2html1 workflow.
+ * This file is part of osis2haggai1 workflow.
  *
- * osis2html1 workflow is free software: you can redistribute it and/or modify
+ * osis2haggai1 workflow is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License version 3 or any later version,
  * as published by the Free Software Foundation.
  *
- * osis2html1 workflow is distributed in the hope that it will be useful,
+ * osis2haggai1 workflow is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License 3 for more details.
  *
  * You should have received a copy of the GNU Affero General Public License 3
- * along with osis2html1 workflow. If not, see <http://www.gnu.org/licenses/>.
+ * along with osis2haggai1 workflow. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * @file $/workflows/osis2html1/osis2html1.java
+ * @file $/workflows/osis2haggai1/osis2haggai1.java
  * @brief Workflow to automatically process a OSIS file to HTML.
  * @author Stephan Kreutzer
  * @since 2015-02-03
@@ -58,11 +58,11 @@ import org.xml.sax.SAXException;
 
 
 
-public class osis2html1
+public class osis2haggai1
 {
     public static void main(String args[])
     {
-        System.out.print("osis2html1 workflow  Copyright (C) 2015  Stephan Kreutzer\n" +
+        System.out.print("osis2haggai1 workflow  Copyright (C) 2015  Stephan Kreutzer\n" +
                          "This program comes with ABSOLUTELY NO WARRANTY.\n" +
                          "This is free software, and you are welcome to redistribute it\n" +
                          "under certain conditions. See the GNU Affero General Public\n" +
@@ -70,7 +70,7 @@ public class osis2html1
                          "repository https://github.com/free-scriptures/free-scriptures/\n" +
                          "and the project website http://www.free-scriptures.org.\n\n");
 
-        String programPath = osis2html1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+        String programPath = osis2haggai1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
         File osisFile = null;
 
@@ -118,25 +118,25 @@ public class osis2html1
 
         if (osisFile == null)
         {
-            System.out.println("osis2html1 workflow: No input OSIS file.");
+            System.out.println("osis2haggai1 workflow: No input OSIS file.");
             System.exit(-1);
         }
 
         if (osisFile.exists() != true)
         {
-            System.out.print("osis2html1 workflow: OSIS file '" + osisFile.getAbsolutePath() + "' doesn't exist.\n");
+            System.out.print("osis2haggai1 workflow: OSIS file '" + osisFile.getAbsolutePath() + "' doesn't exist.\n");
             System.exit(-1);
         }
 
         if (osisFile.isFile() != true)
         {
-            System.out.print("osis2html1 workflow: Path '" + osisFile.getAbsolutePath() + "' isn't a file.\n");
+            System.out.print("osis2haggai1 workflow: Path '" + osisFile.getAbsolutePath() + "' isn't a file.\n");
             System.exit(-1);
         }
 
         if (osisFile.canRead() != true)
         {
-            System.out.print("osis2html1 workflow: OSIS file '" + osisFile.getAbsolutePath() + "' isn't readable.\n");
+            System.out.print("osis2haggai1 workflow: OSIS file '" + osisFile.getAbsolutePath() + "' isn't readable.\n");
             System.exit(-1);
         }
 
@@ -145,19 +145,19 @@ public class osis2html1
         
         if (osisSchema.exists() != true)
         {
-            System.out.print("osis2html1 workflow: OSIS Schema file '" + osisSchema.getAbsolutePath() + "' doesn't exist.\n");
+            System.out.print("osis2haggai1 workflow: OSIS Schema file '" + osisSchema.getAbsolutePath() + "' doesn't exist.\n");
             System.exit(-1);
         }
 
         if (osisSchema.isFile() != true)
         {
-            System.out.print("osis2html1 workflow: OSIS Schema Path '" + osisSchema.getAbsolutePath() + "' isn't a file.\n");
+            System.out.print("osis2haggai1 workflow: OSIS Schema Path '" + osisSchema.getAbsolutePath() + "' isn't a file.\n");
             System.exit(-1);
         }
 
         if (osisSchema.canRead() != true)
         {
-            System.out.print("osis2html1 workflow: OSIS Schema file '" + osisSchema.getAbsolutePath() + "' isn't readable.\n");
+            System.out.print("osis2haggai1 workflow: OSIS Schema file '" + osisSchema.getAbsolutePath() + "' isn't readable.\n");
             System.exit(-1);
         }
 
@@ -195,7 +195,7 @@ public class osis2html1
 
         if (validOSIS != true)
         {
-            System.out.println("osis2html1 workflow: '" + osisFile.getAbsolutePath() + "' isn't a valid OSIS file according to the OSIS Schema file '" + osisSchema.getAbsolutePath() + "'.");
+            System.out.println("osis2haggai1 workflow: '" + osisFile.getAbsolutePath() + "' isn't a valid OSIS file according to the OSIS Schema file '" + osisSchema.getAbsolutePath() + "'.");
             System.exit(1);
         }
 
@@ -206,7 +206,7 @@ public class osis2html1
         {
             if (tempDirectory.mkdir() != true)
             {
-                System.out.print("osis2html1 workflow: Can't create temp directory '" + tempDirectory.getAbsolutePath() + "'.\n");
+                System.out.print("osis2haggai1 workflow: Can't create temp directory '" + tempDirectory.getAbsolutePath() + "'.\n");
                 System.exit(-1);
             }
         }
@@ -214,7 +214,7 @@ public class osis2html1
         {
             if (tempDirectory.isDirectory() != true)
             {
-                System.out.print("osis2html1 workflow: Temp directory path '" + tempDirectory.getAbsolutePath() + "' exists, but isn't a directory.\n");
+                System.out.print("osis2haggai1 workflow: Temp directory path '" + tempDirectory.getAbsolutePath() + "' exists, but isn't a directory.\n");
                 System.exit(-1);
             }
         }
@@ -223,12 +223,12 @@ public class osis2html1
         {
             BufferedWriter writer = new BufferedWriter(
                                     new OutputStreamWriter(
-                                    new FileOutputStream(new File(tempDirectory.getAbsolutePath() + File.separator + "config_osis2hag1.xml")),
+                                    new FileOutputStream(new File(tempDirectory.getAbsolutePath() + File.separator + "config_osis2haggai1.xml")),
                                     "UTF8"));
 
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-            writer.write("<!-- This file was generated by osis2html1 workflow, which is free software licensed under the GNU Affero General Public License 3 or any later version (see https://github.com/free-scriptures/free-scriptures/ and http://www.free-scriptures.org). -->\n");
-            writer.write("<osis2hag1-config>\n");
+            writer.write("<!-- This file was generated by osis2haggai1 workflow, which is free software licensed under the GNU Affero General Public License 3 or any later version (see https://github.com/free-scriptures/free-scriptures/ and http://www.free-scriptures.org). -->\n");
+            writer.write("<osis2haggai1-config>\n");
             writer.write("  <in>\n");
             writer.write("    <inOSISFile>" + osisFile.getAbsolutePath() + "</inOSISFile>\n");
             writer.write("    <osisSchemaValidation>false</osisSchemaValidation>\n");
@@ -242,7 +242,7 @@ public class osis2html1
             writer.write("    <outHaggaiFile>./haggai.xml</outHaggaiFile>\n");
             writer.write("    <title>Bible text in Haggai XML</title>\n");
             writer.write("  </out>\n");
-            writer.write("</osis2hag1-config>\n");
+            writer.write("</osis2haggai1-config>\n");
 
             writer.close();
         }
@@ -263,8 +263,8 @@ public class osis2html1
         }
 
 
-        builder = new ProcessBuilder("java", "osis2hag1", tempDirectory.getAbsolutePath() + File.separator + "config_osis2hag1.xml");
-        builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "osis2hag" + File.separator + "osis2hag1"));
+        builder = new ProcessBuilder("java", "osis2haggai1", tempDirectory.getAbsolutePath() + File.separator + "config_osis2haggai1.xml");
+        builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "osis2haggai" + File.separator + "osis2haggai1"));
         builder.redirectErrorStream(true);
 
         try
@@ -290,19 +290,19 @@ public class osis2html1
 
         if (haggaiFile.exists() != true)
         {
-            System.out.print("osis2html1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' doesn't exist, but should by now.\n");
+            System.out.print("osis2haggai1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' doesn't exist, but should by now.\n");
             System.exit(-1);
         }
 
         if (haggaiFile.isFile() != true)
         {
-            System.out.print("osis2html1 workflow: Haggai XML path '" + haggaiFile.getAbsolutePath() + "' isn't a file.\n");
+            System.out.print("osis2haggai1 workflow: Haggai XML path '" + haggaiFile.getAbsolutePath() + "' isn't a file.\n");
             System.exit(-1);
         }
 
         if (haggaiFile.canRead() != true)
         {
-            System.out.print("osis2html1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' isn't readable.\n");
+            System.out.print("osis2haggai1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' isn't readable.\n");
             System.exit(-1);
         }
 
@@ -310,19 +310,19 @@ public class osis2html1
         
         if (haggaiSchema.exists() != true)
         {
-            System.out.print("osis2html1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' doesn't exist.\n");
+            System.out.print("osis2haggai1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' doesn't exist.\n");
             System.exit(-1);
         }
 
         if (haggaiSchema.isFile() != true)
         {
-            System.out.print("osis2html1 workflow: Haggai XML Schema Path '" + haggaiSchema.getAbsolutePath() + "' isn't a file.\n");
+            System.out.print("osis2haggai1 workflow: Haggai XML Schema Path '" + haggaiSchema.getAbsolutePath() + "' isn't a file.\n");
             System.exit(-1);
         }
 
         if (haggaiSchema.canRead() != true)
         {
-            System.out.print("osis2html1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' isn't readable.\n");
+            System.out.print("osis2haggai1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' isn't readable.\n");
             System.exit(-1);
         }
 
@@ -360,7 +360,7 @@ public class osis2html1
 
         if (validHaggai != true)
         {
-            System.out.println("osis2html1 workflow: The conversion from OSIS file '" + osisFile.getAbsolutePath() + "' to Haggai XML failed.");
+            System.out.println("osis2haggai1 workflow: The conversion from OSIS file '" + osisFile.getAbsolutePath() + "' to Haggai XML failed.");
             System.exit(1);
         }        
     }

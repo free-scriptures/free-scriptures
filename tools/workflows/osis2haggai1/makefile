@@ -1,33 +1,33 @@
 # Copyright (C) 2015  Stephan Kreutzer
 #
-# This file is part of Free Scriptures.
+# This file is part of osis2haggai1 workflow.
 #
-# Free Scriptures is free software: you can redistribute it and/or modify
+# osis2haggai1 workflow is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License version 3 or any later version,
 # as published by the Free Software Foundation.
 #
-# Free Scriptures is distributed in the hope that it will be useful,
+# osis2haggai1 workflow is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License 3 for more details.
 #
 # You should have received a copy of the GNU Affero General Public License 3
-# along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
+# along with osis2haggai1 workflow. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-.PHONY: all osis2html1 clean
+.PHONY: all osis2haggai1 clean
 
 
 
-all: osis2html1
-osis2html1: osis2html1.class
+all: osis2haggai1
+osis2haggai1: osis2haggai1.class
 
 
 
-osis2html1.class: osis2html1.java
-	javac osis2html1.java
+osis2haggai1.class: osis2haggai1.java
+	javac osis2haggai1.java
 
 clean:
-	rm -f ./osis2html1.class
+	rm -f ./osis2haggai1.class
 

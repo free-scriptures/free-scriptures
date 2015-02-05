@@ -1,18 +1,18 @@
 /* Copyright (C) 2014-2015  Stephan Kreutzer
  *
- * This file is part of Free Scriptures.
+ * This file is part of osis2haggai1s.
  *
- * Free Scriptures is free software: you can redistribute it and/or modify
+ * osis2haggai1 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License version 3 or any later version,
  * as published by the Free Software Foundation.
  *
- * Free Scriptures is distributed in the hope that it will be useful,
+ * osis2haggai1 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License 3 for more details.
  *
  * You should have received a copy of the GNU Affero General Public License 3
- * along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
+ * along with osis2haggai1. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
  * @file $/ConfigProcessor.java
@@ -55,19 +55,19 @@ class ConfigProcessor
     {
         if (this.configFile.exists() != true)
         {
-            System.out.print("osis2hag1: '" + this.configFile.getAbsolutePath() + "' doesn't exist.\n");
+            System.out.print("osis2haggai1: '" + this.configFile.getAbsolutePath() + "' doesn't exist.\n");
             System.exit(-1);
         }
 
         if (this.configFile.isFile() != true)
         {
-            System.out.print("osis2hag1: '" + this.configFile.getAbsolutePath() + "' isn't a file.\n");
+            System.out.print("osis2haggai1: '" + this.configFile.getAbsolutePath() + "' isn't a file.\n");
             System.exit(-2);
         }
 
         if (this.configFile.canRead() != true)
         {
-            System.out.print("osis2hag1: '" + this.configFile.getAbsolutePath() + "' isn't readable.\n");
+            System.out.print("osis2haggai1: '" + this.configFile.getAbsolutePath() + "' isn't readable.\n");
             System.exit(-3);
         }
 
@@ -94,7 +94,7 @@ class ConfigProcessor
                         {
                             if (this.inOSISFile != null)
                             {
-                                System.out.print("osis2hag1: Multiple OSIS input files specified. Last one wins.\n");
+                                System.out.print("osis2haggai1: Multiple OSIS input files specified. Last one wins.\n");
                             }
 
                             File inFile = new File(event.asCharacters().getData());
@@ -108,19 +108,19 @@ class ConfigProcessor
 
                             if (inFile.exists() != true)
                             {
-                                System.out.print("osis2hag1: '" + inFile.getAbsolutePath() + "' doesn't exist.\n");
+                                System.out.print("osis2haggai1: '" + inFile.getAbsolutePath() + "' doesn't exist.\n");
                                 System.exit(-4);
                             }
 
                             if (inFile.isFile() != true)
                             {
-                                System.out.print("osis2hag1: '" + inFile.getAbsolutePath() + "' isn't a file.\n");
+                                System.out.print("osis2haggai1: '" + inFile.getAbsolutePath() + "' isn't a file.\n");
                                 System.exit(-5);
                             }
 
                             if (inFile.canRead() != true)
                             {
-                                System.out.print("osis2hag1: '" + inFile.getAbsolutePath() + "' isn't readable.\n");
+                                System.out.print("osis2haggai1: '" + inFile.getAbsolutePath() + "' isn't readable.\n");
                                 System.exit(-6);
                             }
 
@@ -135,7 +135,7 @@ class ConfigProcessor
                         {
                             if (this.outHaggaiFile != null)
                             {
-                                System.out.print("osis2hag1: Multiple Haggai XML output files specified. Last one wins.\n");
+                                System.out.print("osis2haggai1: Multiple Haggai XML output files specified. Last one wins.\n");
                             }
 
                             this.outHaggaiFile = new File(event.asCharacters().getData());
@@ -307,13 +307,13 @@ class ConfigProcessor
 
         if (this.inOSISFile == null)
         {
-            System.out.print("osis2hag1: No OSIS input file specified.\n");
+            System.out.print("osis2haggai1: No OSIS input file specified.\n");
             System.exit(-9);
         }
 
         if (this.outHaggaiFile == null)
         {
-            System.out.print("osis2hag1: No Haggai XML output file specified.\n");
+            System.out.print("osis2haggai1: No Haggai XML output file specified.\n");
             System.exit(-10);
         }
 

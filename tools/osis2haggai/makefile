@@ -16,7 +16,7 @@
 
 
 
-directories = ./osis2hag1
+directories = ./osis2haggai1
 
 
 

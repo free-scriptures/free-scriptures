@@ -1,21 +1,21 @@
 /* Copyright (C) 2014-2015  Stephan Kreutzer
  *
- * This file is part of Free Scriptures.
+ * This file is part of osis2haggai1.
  *
- * Free Scriptures is free software: you can redistribute it and/or modify
+ * osis2haggai1 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License version 3 or any later version,
  * as published by the Free Software Foundation.
  *
- * Free Scriptures is distributed in the hope that it will be useful,
+ * osis2haggai1 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License 3 for more details.
  *
  * You should have received a copy of the GNU Affero General Public License 3
- * along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
+ * along with osis2haggai1. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * @file $/osis2hag1.java
+ * @file $/osis2haggai1.java
  * @author Stephan Kreutzer
  * @since 2014-02-10
  */
@@ -34,11 +34,11 @@ import javax.xml.XMLConstants;
 
 
 
-class osis2hag1
+class osis2haggai1
 {
     public static void main(String args[])
     {
-        System.out.print("osis2hag1  Copyright (C) 2014-2015  Stephan Kreutzer\n" +
+        System.out.print("osis2haggai1  Copyright (C) 2014-2015  Stephan Kreutzer\n" +
                          "This program comes with ABSOLUTELY NO WARRANTY.\n" +
                          "This is free software, and you are welcome to redistribute it\n" +
                          "under certain conditions. See the GNU Affero General Public\n" +
@@ -49,7 +49,7 @@ class osis2hag1
         if (args.length != 1)
         {
             System.out.print("Usage:\n" +
-                             "\tosis2hag1 config-file\n\n");
+                             "\tosis2haggai1 config-file\n\n");
             System.exit(1);
         }
 
@@ -66,9 +66,9 @@ class osis2hag1
             // OSIS is based upon the marker concept, so there would be also a
             // semantical check needed.
             
-            System.out.print("osis2hag1: Validating '" + inOSISFile.getAbsolutePath() + "'.\n");
+            System.out.print("osis2haggai1: Validating '" + inOSISFile.getAbsolutePath() + "'.\n");
             
-            File osisSchema = new File(osis2hag1.class.getProtectionDomain().getCodeSource().getLocation().getFile() +
+            File osisSchema = new File(osis2haggai1.class.getProtectionDomain().getCodeSource().getLocation().getFile() +
                                        "osisCore.2.1.1.xsd");
                  
             if (osisSchema.exists() != true)
@@ -117,7 +117,7 @@ class osis2hag1
             }
             else
             {
-                System.out.print("osis2hag1: Can't validate OSIS file - schema 'osisCore.2.1.1.xsd' is missing or inaccessible.\n");
+                System.out.print("osis2haggai1: Can't validate OSIS file - schema 'osisCore.2.1.1.xsd' is missing or inaccessible.\n");
                 System.exit(-13);
             }
         }

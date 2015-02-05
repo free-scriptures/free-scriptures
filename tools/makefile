@@ -16,7 +16,7 @@
 
 
 
-directories = ./gui ./osis2hag ./schemavalidator ./workflows
+directories = ./gui ./osis2haggai ./schemavalidator ./workflows
 
 
 
