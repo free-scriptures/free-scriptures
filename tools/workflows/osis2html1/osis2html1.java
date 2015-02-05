@@ -284,5 +284,84 @@ public class osis2html1
             ex.printStackTrace();
             System.exit(-1);
         }
+
+
+        File haggaiFile = new File(tempDirectory.getAbsolutePath() + File.separator + "haggai.xml");
+
+        if (haggaiFile.exists() != true)
+        {
+            System.out.print("osis2html1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' doesn't exist, but should by now.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiFile.isFile() != true)
+        {
+            System.out.print("osis2html1 workflow: Haggai XML path '" + haggaiFile.getAbsolutePath() + "' isn't a file.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiFile.canRead() != true)
+        {
+            System.out.print("osis2html1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' isn't readable.\n");
+            System.exit(-1);
+        }
+
+        File haggaiSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "haggai_20130620.xsd");
+        
+        if (haggaiSchema.exists() != true)
+        {
+            System.out.print("osis2html1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' doesn't exist.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiSchema.isFile() != true)
+        {
+            System.out.print("osis2html1 workflow: Haggai XML Schema Path '" + haggaiSchema.getAbsolutePath() + "' isn't a file.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiSchema.canRead() != true)
+        {
+            System.out.print("osis2html1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' isn't readable.\n");
+            System.exit(-1);
+        }
+
+
+        boolean validHaggai = false;
+
+        builder = new ProcessBuilder("java", "schemavalidator1", haggaiFile.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities" + File.separator + "config_empty.xml", haggaiSchema.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "config_schemata_haggai_20130620.xml");
+        builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1"));
+        builder.redirectErrorStream(true);
+
+        try
+        {
+            Process process = builder.start();
+            Scanner scanner = new Scanner(process.getInputStream()).useDelimiter("\n");
+
+            while (scanner.hasNext() == true)
+            {
+                String line = scanner.next();
+
+                System.out.println(line);
+
+                if (line.contains("schemavalidator1: Valid.") == true)
+                {
+                    validHaggai = true;
+                }
+            }
+
+            scanner.close();
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        if (validHaggai != true)
+        {
+            System.out.println("osis2html1 workflow: The conversion from OSIS file '" + osisFile.getAbsolutePath() + "' to Haggai XML failed.");
+            System.exit(1);
+        }        
     }
 }
