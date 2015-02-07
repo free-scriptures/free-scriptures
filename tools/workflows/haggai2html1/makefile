@@ -1,40 +1,40 @@
 # Copyright (C) 2015  Stephan Kreutzer
 #
-# This file is part of Free Scriptures.
+# This file is part of haggai2html1 workflow.
 #
-# Free Scriptures is free software: you can redistribute it and/or modify
+# haggai2html1 workflow is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License version 3 or any later version,
 # as published by the Free Software Foundation.
 #
-# Free Scriptures is distributed in the hope that it will be useful,
+# haggai2html1 workflow is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License 3 for more details.
 #
 # You should have received a copy of the GNU Affero General Public License 3
-# along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
+# along with haggai2html1 workflow. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-directories = ./haggai2html1 ./osis2haggai1
+directories = ./gui
 
 
 
-.PHONY: all workflows $(directories) clean
+.PHONY: all haggai2html1 $(directories) clean
 
 
 
-all: workflows $(directories)
-workflows: setup1.class
+all: haggai2html1 $(directories)
+haggai2html1: haggai2html1.class
 
 
 
-setup1.class: setup1.java
-	javac setup1.java
+haggai2html1.class: haggai2html1.java
+	javac haggai2html1.java
 
 $(directories):
 	$(MAKE) --directory=$@
 
 clean:
-	rm -f ./setup1.class	
+	rm -f ./haggai2html1.class
 

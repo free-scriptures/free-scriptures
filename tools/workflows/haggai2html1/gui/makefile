@@ -16,11 +16,11 @@
 
 
 
-directories = ./gui ./osis2haggai ./schemavalidator ./workflows ./xsltransformator
+directories = ./haggai2html1_workflow_xslt_picker1
 
 
 
-.PHONY: all $(directories) install
+.PHONY: all $(directories)
 
 
 
@@ -30,7 +30,4 @@ all: $(directories)
 
 $(directories):
 	$(MAKE) --directory=$@
-
-install:
-	java -classpath ./workflows/ setup1
 
