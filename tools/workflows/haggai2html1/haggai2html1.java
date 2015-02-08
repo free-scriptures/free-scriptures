@@ -27,6 +27,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 
 
@@ -52,7 +55,7 @@ public class haggai2html1
         }
         else
         {
-            ProcessBuilder builder = new ProcessBuilder("java", "file_picker1", programPath + "config_file_picker1.xml");
+            ProcessBuilder builder = new ProcessBuilder("java", "file_picker1", programPath + "config_file_picker1_in.xml");
             builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "gui" + File.separator + "file_picker" + File.separator + "file_picker1"));
             builder.redirectErrorStream(true);
 
@@ -284,54 +287,167 @@ public class haggai2html1
             System.exit(-1);
         }
 
+        File xhtmlFile = new File(tempDirectory.getAbsolutePath() + File.separator + "html.html");
 
-/*
-
-
-        File haggaiFile = new File(tempDirectory.getAbsolutePath() + File.separator + "haggai.xml");
-
-        if (haggaiFile.exists() != true)
+        if (xhtmlFile.exists() != true)
         {
-            System.out.print("osis2haggai1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' doesn't exist, but should by now.\n");
+            System.out.print("haggai2html1 workflow: XHTML file '" + xhtmlFile.getAbsolutePath() + "' doesn't exist, but should by now.\n");
             System.exit(-1);
         }
 
-        if (haggaiFile.isFile() != true)
+        if (xhtmlFile.isFile() != true)
         {
-            System.out.print("osis2haggai1 workflow: Haggai XML path '" + haggaiFile.getAbsolutePath() + "' isn't a file.\n");
+            System.out.print("haggai2html1 workflow: XHTML path '" + xhtmlFile.getAbsolutePath() + "' isn't a file.\n");
             System.exit(-1);
         }
 
-        if (haggaiFile.canRead() != true)
+        if (xhtmlFile.canRead() != true)
         {
-            System.out.print("osis2haggai1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' isn't readable.\n");
+            System.out.print("haggai2html1 workflow: XHTML file '" + xhtmlFile.getAbsolutePath() + "' isn't readable.\n");
             System.exit(-1);
         }
 
-        File haggaiSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "haggai_20130620.xsd");
+
+        String doctypeDeclaration = new String("<!DOCTYPE");
+        int doctypePosMatching = 0;
+        String doctype = new String();
+    
+        try
+        {
+            FileInputStream in = new FileInputStream(xhtmlFile);
+            
+            int currentByte = 0;
+ 
+            do
+            {
+                currentByte = in.read();
+                
+                if (currentByte < 0 ||
+                    currentByte > 255)
+                {
+                    break;
+                }
+                
+
+                char currentByteCharacter = (char) currentByte;
+                
+                if (doctypePosMatching < doctypeDeclaration.length())
+                {
+                    if (currentByteCharacter == doctypeDeclaration.charAt(doctypePosMatching))
+                    {
+                        doctypePosMatching++;
+                        doctype += currentByteCharacter;
+                    }
+                    else
+                    {
+                        doctypePosMatching = 0;
+                        doctype = new String();
+                    }
+                }
+                else
+                {
+                    doctype += currentByteCharacter;
+                
+                    if (currentByteCharacter == '>')
+                    {
+                        break;
+                    }
+                }
+            
+            } while (true);
+        }
+        catch (FileNotFoundException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        File xhtmlEntityResolverConfig = null;
+        File xhtmlSchema = null;
+        File xhtmlSchemaResolverConfig = null;
+
+        if (doctype.contains("\"-//W3C//DTD XHTML 1.0 Strict//EN\"") == true)
+        {
+            xhtmlEntityResolverConfig = new File(programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities" + File.separator + "config_xhtml1-strict.xml");
+            xhtmlSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml1-strict.xsd");
+            xhtmlSchemaResolverConfig = new File(programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "schemata" + File.separator + "config_xhtml1-strict.xml");
+        }
+        else if (doctype.contains("\"-//W3C//DTD XHTML 1.1//EN\"") == true)
+        {
+            xhtmlSchemaResolverConfig = new File(programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities" + File.separator + "config_xhtml1_1.xml");
+            xhtmlSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml11.xsd");
+            xhtmlSchemaResolverConfig = new File(programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "schemata" + File.separator + "config_xhtml1_1.xml");
+        }
+        else
+        {
+            System.out.print("haggai2html1 workflow: Unknown XHTML version '" + doctype + "' in '" + xhtmlFile.getAbsolutePath() + "'.\n");
+            System.exit(-1);
+        }
+
+
+        if (xhtmlEntityResolverConfig.exists() != true)
+        {
+            System.out.print("haggai2html1 workflow: XHTML Entity resolver configuration file '" + xhtmlEntityResolverConfig.getAbsolutePath() + "' doesn't exist.\n");
+            System.exit(-1);
+        }
+
+        if (xhtmlEntityResolverConfig.isFile() != true)
+        {
+            System.out.print("haggai2html1 workflow: XHTML Entity resolver configuration path '" + xhtmlEntityResolverConfig.getAbsolutePath() + "' isn't a file.\n");
+            System.exit(-1);
+        }
+
+        if (xhtmlEntityResolverConfig.canRead() != true)
+        {
+            System.out.print("haggai2html1 workflow: XHTML Entity resolver configuration file '" + xhtmlEntityResolverConfig.getAbsolutePath() + "' isn't readable.\n");
+            System.exit(-1);
+        }
         
-        if (haggaiSchema.exists() != true)
+        if (xhtmlSchema.exists() != true)
         {
-            System.out.print("osis2haggai1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' doesn't exist.\n");
+            System.out.print("haggai2html1 workflow: XHTML Schema file '" + xhtmlSchema.getAbsolutePath() + "' doesn't exist.\n");
             System.exit(-1);
         }
 
-        if (haggaiSchema.isFile() != true)
+        if (xhtmlSchema.isFile() != true)
         {
-            System.out.print("osis2haggai1 workflow: Haggai XML Schema Path '" + haggaiSchema.getAbsolutePath() + "' isn't a file.\n");
+            System.out.print("haggai2html1 workflow: XHTML Schema Path '" + xhtmlSchema.getAbsolutePath() + "' isn't a file.\n");
             System.exit(-1);
         }
 
-        if (haggaiSchema.canRead() != true)
+        if (xhtmlSchema.canRead() != true)
         {
-            System.out.print("osis2haggai1 workflow: Haggai XML Schema file '" + haggaiSchema.getAbsolutePath() + "' isn't readable.\n");
+            System.out.print("haggai2html1 workflow: XHTML Schema file '" + xhtmlSchema.getAbsolutePath() + "' isn't readable.\n");
+            System.exit(-1);
+        }
+        
+        if (xhtmlSchemaResolverConfig.exists() != true)
+        {
+            System.out.print("haggai2html1 workflow: XHTML Schema resolver configuration file '" + xhtmlSchemaResolverConfig.getAbsolutePath() + "' doesn't exist.\n");
+            System.exit(-1);
+        }
+
+        if (xhtmlSchemaResolverConfig.isFile() != true)
+        {
+            System.out.print("haggai2html1 workflow: XHTML Schema resolver configuration path '" + xhtmlSchemaResolverConfig.getAbsolutePath() + "' isn't a file.\n");
+            System.exit(-1);
+        }
+
+        if (xhtmlSchemaResolverConfig.canRead() != true)
+        {
+            System.out.print("haggai2html1 workflow: XHTML Schema resolver configuration file '" + xhtmlSchemaResolverConfig.getAbsolutePath() + "' isn't readable.\n");
             System.exit(-1);
         }
 
 
-        boolean validHaggai = false;
+        boolean validXHTML = false;
 
-        builder = new ProcessBuilder("java", "schemavalidator1", haggaiFile.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities" + File.separator + "config_empty.xml", haggaiSchema.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "config_schemata_haggai_20130620.xml");
+        builder = new ProcessBuilder("java", "schemavalidator1", xhtmlFile.getAbsolutePath(), xhtmlEntityResolverConfig.getAbsolutePath(), xhtmlSchema.getAbsolutePath(), xhtmlSchemaResolverConfig.getAbsolutePath());
         builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1"));
         builder.redirectErrorStream(true);
 
@@ -348,7 +464,7 @@ public class haggai2html1
 
                 if (line.contains("schemavalidator1: Valid.") == true)
                 {
-                    validHaggai = true;
+                    validXHTML = true;
                 }
             }
 
@@ -360,22 +476,22 @@ public class haggai2html1
             System.exit(-1);
         }
 
-        if (validHaggai != true)
+        if (validXHTML != true)
         {
-            System.out.println("osis2haggai1 workflow: The conversion from OSIS file '" + osisFile.getAbsolutePath() + "' to Haggai XML failed.");
+            System.out.println("haggai2html1 workflow: The conversion from Haggai XML file '" + haggaiFile.getAbsolutePath() + "' to XHTML failed because of XSLT stylesheet '" + transformationFile.getAbsolutePath() + "'.");
             System.exit(1);
         }
 
 
         File outFile = null;
 
-        if (args.length >= 2)
+        if (args.length >= 3)
         {
-            outFile = new File(args[1]);
+            outFile = new File(args[2]);
         }
         else
         {
-            builder = new ProcessBuilder("java", "file_picker1", programPath + "config_file_picker1_out.xml", osisFile.getAbsoluteFile().getParent());
+            builder = new ProcessBuilder("java", "file_picker1", programPath + "config_file_picker1_out.xml", haggaiFile.getAbsoluteFile().getParent());
             builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "gui" + File.separator + "file_picker" + File.separator + "file_picker1"));
             builder.redirectErrorStream(true);
 
@@ -413,7 +529,7 @@ public class haggai2html1
 
         if (outFile == null)
         {
-            System.out.println("osis2haggai1 workflow: No output Haggai XML file specified.");
+            System.out.println("haggai2html1 workflow: No output XHTML file specified.");
             System.exit(-1);
         }
 
@@ -421,31 +537,31 @@ public class haggai2html1
         {
             if (outFile.isFile() != true)
             {
-                System.out.print("osis2haggai1 workflow: Haggai XML output path '" + outFile.getAbsolutePath() + "' isn't a file.\n");
+                System.out.print("haggai2html1 workflow: XHTML output path '" + outFile.getAbsolutePath() + "' isn't a file.\n");
                 System.exit(-1);
             }
         }
         
-        CopyFileBinary(haggaiFile, outFile);*/
+        CopyFileBinary(xhtmlFile, outFile);
     }
-/*
+
     public static int CopyFileBinary(File from, File to)
     {
         if (from.exists() != true)
         {
-            System.out.println("osis2haggai1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' doesn't exist.");
+            System.out.println("haggai2html1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' doesn't exist.");
             return -1;
         }
         
         if (from.isFile() != true)
         {
-            System.out.println("osis2haggai1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't a file.");
+            System.out.println("haggai2html1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't a file.");
             return -2;
         }
         
         if (from.canRead() != true)
         {
-            System.out.println("osis2haggai1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't readable.");
+            System.out.println("haggai2html1 workflow: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't readable.");
             return -3;
         }
     
@@ -482,5 +598,5 @@ public class haggai2html1
         }
     
         return 0;
-    }*/
+    }
 }
