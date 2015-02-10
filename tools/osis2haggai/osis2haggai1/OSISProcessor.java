@@ -469,7 +469,27 @@ class OSISProcessor
                                 
                                 if (metadataMap.containsKey("identifier") == true)
                                 {
-                                    writer.write("    <identifier>" + metadataMap.get("identifier") + "</identifier>\n");
+                                    String identifier = metadataMap.get("identifier");
+                                    int identifierLength = identifier.length();
+
+                                    writer.write("    <identifier>");
+
+                                    for (int i = 0; i < identifierLength; i++)
+                                    {
+                                        char c = identifier.charAt(i);   
+                                        
+                                        if (Character.isLetterOrDigit(c) == true ||
+                                            c == '_')
+                                        {
+                                            writer.write(c);
+                                        }
+                                        else
+                                        {
+                                            writer.write("_");
+                                        }
+                                    }
+
+                                    writer.write("</identifier>\n");
                                 }
                                 
                                 if (metadataMap.containsKey("language") == true)
