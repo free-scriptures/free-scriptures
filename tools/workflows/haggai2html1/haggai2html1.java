@@ -115,7 +115,6 @@ public class haggai2html1
             System.exit(-1);
         }
 
-
         File haggaiSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "haggai_20130620.xsd");
         
         if (haggaiSchema.exists() != true)
@@ -136,10 +135,73 @@ public class haggai2html1
             System.exit(-1);
         }
 
+        File tempDirectory = new File(programPath + "temp");
+
+        if (tempDirectory.exists() != true)
+        {
+            if (tempDirectory.mkdir() != true)
+            {
+                System.out.print("haggai2html1 workflow: Can't create temp directory '" + tempDirectory.getAbsolutePath() + "'.\n");
+                System.exit(-1);
+            }
+        }
+        else
+        {
+            if (tempDirectory.isDirectory() != true)
+            {
+                System.out.print("haggai2html1 workflow: Temp directory path '" + tempDirectory.getAbsolutePath() + "' exists, but isn't a directory.\n");
+                System.exit(-1);
+            }
+        }
+
+
+        ProcessBuilder builder = new ProcessBuilder("java", "bommanager1", haggaiFile.getAbsolutePath(), "remove", tempDirectory.getAbsolutePath() + File.separator + "haggai.xml");
+        builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "bommanager" + File.separator + "bommanager1"));
+        builder.redirectErrorStream(true);
+
+        try
+        {
+            Process process = builder.start();
+            Scanner scanner = new Scanner(process.getInputStream()).useDelimiter("\n");
+
+            while (scanner.hasNext() == true)
+            {
+                String line = scanner.next();
+
+                System.out.println(line);
+            }
+
+            scanner.close();
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        haggaiFile = new File(tempDirectory.getAbsolutePath() + File.separator + "haggai.xml");
+
+        if (haggaiFile.exists() != true)
+        {
+            System.out.print("haggai2html1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' doesn't exist, but should by now.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiFile.isFile() != true)
+        {
+            System.out.print("haggai2html1 workflow: Path '" + haggaiFile.getAbsolutePath() + "' isn't a file.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiFile.canRead() != true)
+        {
+            System.out.print("haggai2html1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' isn't readable.\n");
+            System.exit(-1);
+        }
 
         boolean validHaggaiXML = false;
 
-        ProcessBuilder builder = new ProcessBuilder("java", "schemavalidator1", haggaiFile.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities" + File.separator + "config_empty.xml", haggaiSchema.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "config_schemata_haggai_20130620.xml");
+        builder = new ProcessBuilder("java", "schemavalidator1", haggaiFile.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities" + File.separator + "config_empty.xml", haggaiSchema.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "config_schemata_haggai_20130620.xml");
         builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1"));
         builder.redirectErrorStream(true);
 
@@ -243,25 +305,6 @@ public class haggai2html1
             System.exit(-1);
         }
 
-
-        File tempDirectory = new File(programPath + "temp");
-
-        if (tempDirectory.exists() != true)
-        {
-            if (tempDirectory.mkdir() != true)
-            {
-                System.out.print("haggai2html1 workflow: Can't create temp directory '" + tempDirectory.getAbsolutePath() + "'.\n");
-                System.exit(-1);
-            }
-        }
-        else
-        {
-            if (tempDirectory.isDirectory() != true)
-            {
-                System.out.print("haggai2html1 workflow: Temp directory path '" + tempDirectory.getAbsolutePath() + "' exists, but isn't a directory.\n");
-                System.exit(-1);
-            }
-        }
 
         builder = new ProcessBuilder("java", "xsltransformator1", haggaiFile.getAbsolutePath(), transformationFile.getAbsolutePath(), tempDirectory.getAbsolutePath() + File.separator + "html.html");
         builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "xsltransformator" + File.separator + "xsltransformator1"));
