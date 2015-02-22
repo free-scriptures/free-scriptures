@@ -18,4 +18,5 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
 -->
 <file-picker1-config>
   <extension extension="xml">OSIS Bible Text (.xml)</extension>
+  <extension extension="osis">OSIS Bible Text (.osis)</extension>
 </file-picker1-config>

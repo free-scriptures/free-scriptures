@@ -103,6 +103,7 @@ class OSISProcessor
             String metadataMapKey = "";
             boolean body = false;
             boolean readingChapter = false;
+            boolean readingVerse = false;
 
             int bookNumber = 0;
             String chapterID = "";
@@ -385,20 +386,31 @@ class OSISProcessor
                             verseID = attributeStartID.getValue();
                             
                             writer.write("        <VERSE vnumber=\"" + verseNumberCurrent + "\">");
+
+                            readingVerse = true;
                         }
                         else if (attributeEndID != null)
                         {
+                            if (readingVerse != true)
+                            {
+                                System.out.print("osis2haggai1: Book " + bookNumber + ", chapter " + chapterNumberCurrent + ": Verse end with no corresponding verse start detected around verse number " + verseNumberCurrent + ".\n");
+                                System.exit(-1);
+                            }
+
                             verseID = "";
                             verseNumberCurrent = 0;
                         
                             writer.write("</VERSE>\n");
+
+                            readingVerse = false;
                         }
                         else
                         {
                         
                         }
                     }
-                    else if (tagName.equalsIgnoreCase("note") == true)
+                    else if (tagName.equalsIgnoreCase("note") == true &&
+                             readingVerse == true)
                     {
                         writer.write("<NOTE>");
                         
@@ -553,7 +565,8 @@ class OSISProcessor
                             writer.write("<!-- Paragraph ending within a verse. -->");
                         }
                     }
-                    else if (tagName.equalsIgnoreCase("note") == true)
+                    else if (tagName.equalsIgnoreCase("note") == true &&
+                             readingVerse == true)
                     {
                         writer.write("</NOTE>");
                     }
