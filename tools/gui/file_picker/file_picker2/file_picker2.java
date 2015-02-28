@@ -16,7 +16,7 @@
  */
 /**
  * @file $/gui/file_picker/file_picker2/file_picker2.java
- * @brief Universal GUI file picker.
+ * @brief Universal GUI directory picker.
  * @author Stephan Kreutzer
  * @since 2015-02-25
  */

@@ -154,7 +154,15 @@ public class haggai2pdf1
         {
             if (tempDirectory.isDirectory() == true)
             {
-                if (haggai2pdf1.DeleteFileRecursively(tempDirectory) != 0)
+                if (haggai2pdf1.DeleteFileRecursively(tempDirectory) == 0)
+                {
+                    if (tempDirectory.mkdir() != true)
+                    {
+                        System.out.print("haggai2pdf1 workflow: Can't create temp directory '" + tempDirectory.getAbsolutePath() + "'.\n");
+                        System.exit(-1);
+                    }
+                }
+                else
                 {
                     System.out.println("haggai2pdf1 workflow: Can't clean '" + tempDirectory.getAbsolutePath() + "'.");
                     System.exit(-1);
