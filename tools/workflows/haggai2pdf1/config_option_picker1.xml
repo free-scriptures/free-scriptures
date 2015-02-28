@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2015  Stephan Kreutzer
+
+This file is part of haggai2pdf1 workflow.
+
+haggai2pdf1 workflow is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3 or any later version,
+as published by the Free Software Foundation.
+
+haggai2pdf1 workflow is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License 3 for more details.
+
+You should have received a copy of the GNU Affero General Public License 3
+along with haggai2pdf1 workflow. If not, see <http://www.gnu.org/licenses/>.
+-->
+<option-picker1-config>
+  <caption>Pick a Transformation</caption>
+  <options>
+    <option id="haggai2latex1.xsl">
+      <display-name>haggai2latex1</display-name>
+      <description>DIN A4, right/left pages, pretty basic layout using standard LaTeX features.</description>
+    </option>
+    <option id="haggai2latex2.xsl">
+      <display-name>haggai2latex2</display-name>
+      <description>DIN A4, right/left pages, wide margins, verse markers.</description>
+    </option>
+    <option id="haggai2latex3.xsl">
+      <display-name>haggai2latex3</display-name>
+      <description>DIN A4 two column layout with separator line, chapter numbers as initials, verse numbers keyed to verse markers.</description>
+    </option>
+    <option id="haggai2latex4.xsl">
+      <display-name>haggai2latex4</display-name>
+      <description>DIN A4 two column layout with separator line and separator lines at top and bottom, chapter numbers as initials, verse numbers keyed to verse markers, footnotes span over columns, running headers.</description>
+    </option>
+    <option id="haggai2latex5.xsl">
+      <display-name>haggai2latex5</display-name>
+      <description>DIN A4 two column layout with separator line and framed text, chapter numbers as initials, verse numbers keyed to verse markers, footnotes span over columns, running headers.</description>
+    </option>
+    <option id="haggai2latex6.xsl">
+      <display-name>haggai2latex6</display-name>
+      <description>DIN A4 two column layout with separator line and separator lines at top and bottom, no chapter or verse numbers.</description>
+    </option>
+    <option id="haggai2latex8.xsl">
+      <display-name>haggai2latex8</display-name>
+      <description>DIN A5 two column layout with separator line and separator lines at top and bottom, chapter numbers as initials, verse numbers keyed to verse markers, footnotes span over columns, running headers.</description>
+    </option>
+    <option id="haggai2latex9.xsl">
+      <display-name>haggai2latex9</display-name>
+      <description>DIN A4 two column layout, chapter numbers as initials, verse numbers keyed to verse markers, running headers. The use of twocolumn should reduce the need of manual adjustment compared to hag2latex3-6.</description>
+    </option>
+    <option id="haggai2latex10.xsl">
+      <display-name>haggai2latex10</display-name>
+      <description>DIN A6, chapter numbers as initials, verse numbers keyed to verse markers, running headers.</description>
+    </option>
+    <option id="haggai2latex11.xsl">
+      <display-name>haggai2latex11</display-name>
+      <description>DIN A4 right/left page layout, requires eledmac, verse numbers keyed to verse markers, running headers, two footnote levels with back referencing.</description>
+    </option>
+  </options>
+</option-picker1-config>

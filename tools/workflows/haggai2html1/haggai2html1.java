@@ -245,8 +245,8 @@ public class haggai2html1
         }
         else
         {
-            builder = new ProcessBuilder("java", "haggai2html1_workflow_xslt_picker1", programPath + "gui" + File.separator + "haggai2html1_workflow_xslt_picker1" + File.separator + "config.xml");
-            builder.directory(new File(programPath + "gui" + File.separator + "haggai2html1_workflow_xslt_picker1"));
+            builder = new ProcessBuilder("java", "option_picker1", programPath + "config_option_picker1.xml");
+            builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "gui" + File.separator + "option_picker" + File.separator + "option_picker1"));
             builder.redirectErrorStream(true);
 
             try
@@ -267,7 +267,7 @@ public class haggai2html1
                         if (tokenizer.countTokens() >= 2)
                         {
                             tokenizer.nextToken();
-                            transformationFile = new File(tokenizer.nextToken());
+                            transformationFile = new File(programPath + ".." + File.separator + ".." + File.separator + "haggai2html" + File.separator + tokenizer.nextToken());
                         }
                     }
                 }
@@ -279,12 +279,28 @@ public class haggai2html1
                 ex.printStackTrace();
                 System.exit(-1);
             }
-        }
 
-        if (transformationFile == null)
-        {
-            System.out.println("haggai2html1 workflow: No transformation file specified.");
-            System.exit(-1);
+            if (transformationFile == null)
+            {
+                System.out.println("haggai2html1 workflow: No transformation file specified.");
+                System.exit(-1);
+            }
+
+            try
+            {
+                File transformationFileDirectory = new File(programPath + ".." + File.separator + ".." + File.separator + "haggai2html" + File.separator);
+
+                if (transformationFile.getParentFile().getCanonicalPath().equals(transformationFileDirectory.getCanonicalPath()) != true)
+                {
+                    System.out.println("haggai2html1 workflow: The selected transformation file '" + transformationFile.getAbsolutePath() + "' isn't located in directory '" + transformationFileDirectory.getCanonicalPath() + "'.");
+                    System.exit(-1);
+                }
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+                System.exit(-1);
+            }
         }
 
         if (transformationFile.exists() != true)

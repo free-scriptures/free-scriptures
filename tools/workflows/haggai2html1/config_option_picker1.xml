@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2015  Stephan Kreutzer
+
+This file is part of haggai2html1 workflow.
+
+haggai2html1 workflow is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3 or any later version,
+as published by the Free Software Foundation.
+
+haggai2html1 workflow is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License 3 for more details.
+
+You should have received a copy of the GNU Affero General Public License 3
+along with haggai2html1 workflow. If not, see <http://www.gnu.org/licenses/>.
+-->
+<option-picker1-config>
+  <caption>Pick a Transformation</caption>
+  <options>
+    <option id="haggai2html1.xsl">
+      <display-name>haggai2html1</display-name>
+      <description>Chapters, paragraph support, superscript verse numbers, running text, footnotes as abbreviations, metadata as table at the top.</description>
+    </option>
+    <option id="haggai2html2.xsl">
+      <display-name>haggai2html2</display-name>
+      <description>Chapters, verses as numbered list, footnotes as abbreviations, metadata as table at the top.</description>
+    </option>
+  </options>
+</option-picker1-config>

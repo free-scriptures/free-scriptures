@@ -16,7 +16,7 @@
 
 
 
-directories = ./bommanager ./gui ./osis2haggai ./schemavalidator ./workflows ./xsltransformator
+directories = ./bommanager ./gui ./osis2haggai ./schemavalidator ./txtreplace ./workflows ./xsltransformator
 
 
 
