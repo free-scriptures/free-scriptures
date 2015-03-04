@@ -16,11 +16,11 @@
 
 
 
-directories = ./bommanager ./gui ./osis2haggai ./schemavalidator ./txtreplace ./vpl2haggai ./workflows ./xsltransformator
+directories = ./vpl2haggai1
 
 
 
-.PHONY: all $(directories) install
+.PHONY: all $(directories)
 
 
 
@@ -30,7 +30,4 @@ all: $(directories)
 
 $(directories):
 	$(MAKE) --directory=$@
-
-install:
-	java -classpath ./workflows/ setup1
 

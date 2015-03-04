@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2015  Stephan Kreutzer
+
+This file is part of vpl2haggai1.
+
+vpl2haggai1 is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3 or any later version,
+as published by the Free Software Foundation.
+
+vpl2haggai1 is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License 3 for more details.
+
+You should have received a copy of the GNU Affero General Public License 3
+along with vpl2haggai1. If not, see <http://www.gnu.org/licenses/>.
+-->
+<vpl2haggai1-job>
+  <bible-common-name>Common Translation</bible-common-name>
+  <metadata>
+    <bible-full-name>The Full Name of the Common Translation</bible-full-name>
+    <creator>Responsible Entity</creator>
+    <description>A detailed description of the Translation.</description>
+    <publisher>The Publisher</publisher>
+    <contributors>
+      <contributor>Each</contributor>
+      <contributor>And</contributor>
+      <contributor>Every</contributor>
+      <contributor>Contributor</contributor>
+    </contributors>
+    <date>2015-03-02</date>
+    <identifier>worldwide_unique_identifier</identifier>
+    <source>From a printed version or which digital source.</source>
+    <language>en</language>
+    <coverage>Coverage of Bible books</coverage>
+    <rights>Please consider free licensing such as Creative Commons BY-SA 4.0 International or even better, the GNU Affero General Public License 3 with option to upgrade to future versions of the license.</rights>
+  </metadata>
+  <bible-books>
+    <!-- See the Bible Organisational System by openscriptures.org. -->
+    <book identifier="GEN" number="1" long-name="Genesis" short-name="Gen"/>
+    <book identifier="EXO" number="2" long-name="Exodus" short-name="Exo"/>
+    <book identifier="LEV" number="3" long-name="Leviticus" short-name="Lev"/>
+    <book identifier="NUM" number="4" long-name="Numbers" short-name="Num"/>
+    <book identifier="DEU" number="5" long-name="Deuteronomy" short-name="Deu"/>
+    <book identifier="JOS" number="6" long-name="Joshua" short-name="Jos"/>
+    <book identifier="JDG" number="7" long-name="Judges" short-name="Jdg"/>
+    <book identifier="RUT" number="8" long-name="Ruth" short-name="Rut"/>
+    <book identifier="SA1" number="9" long-name="1 Samuel" short-name="1 Sam"/>
+    <book identifier="SA2" number="10" long-name="2 Samuel" short-name="2 Sam"/>
+    <book identifier="KI1" number="11" long-name="1 Kings" short-name="1 Kgs"/>
+    <book identifier="KI2" number="12" long-name="2 Kings" short-name="2 Kgs"/>
+    <book identifier="CH1" number="13" long-name="1 Chronicles" short-name="1 Chr"/>
+    <book identifier="CH2" number="14" long-name="2 Chronicles" short-name="2 Chr"/>
+    <book identifier="EZR" number="15" long-name="Ezra" short-name="Ezr"/>
+    <book identifier="NEH" number="16" long-name="Nehemiah" short-name="Neh"/>
+    <book identifier="EST" number="17" long-name="Esther" short-name="Est"/>
+    <book identifier="JOB" number="18" long-name="Job" short-name="Job"/>
+    <book identifier="PSA" number="19" long-name="Psalms" short-name="Psa"/>
+    <book identifier="PRO" number="20" long-name="Proverbs" short-name="Pro"/>
+    <book identifier="ECC" number="21" long-name="Ecclesiastes" short-name="Ecc"/>
+    <book identifier="SNG" number="22" long-name="Song of Solomon" short-name="Sng"/>
+    <book identifier="ISA" number="23" long-name="Isaiah" short-name="Isa"/>
+    <book identifier="JER" number="24" long-name="Jeremiah" short-name="Jer"/>
+    <book identifier="LAM" number="25" long-name="Lamentations" short-name="Lam"/>
+    <book identifier="EZE" number="26" long-name="Ezekiel" short-name="Eze"/>
+    <book identifier="DAN" number="27" long-name="Daniel" short-name="Dan"/>
+    <book identifier="HOS" number="28" long-name="Hosea" short-name="Hos"/>
+    <book identifier="JOL" number="29" long-name="Joel" short-name="Joel"/>
+    <book identifier="AMO" number="30" long-name="Amos" short-name="Amos"/>
+    <book identifier="OBA" number="31" long-name="Obadiah" short-name="Oba"/>
+    <book identifier="JNA" number="32" long-name="Jonah" short-name="Jon"/>
+    <book identifier="MIC" number="33" long-name="Micah" short-name="Mic"/>
+    <book identifier="NAH" number="34" long-name="Nahum" short-name="Nah"/>
+    <book identifier="HAB" number="35" long-name="Habakkuk" short-name="Hab"/>
+    <book identifier="ZEP" number="36" long-name="Zephaniah" short-name="Zep"/>
+    <book identifier="HAG" number="37" long-name="Haggai" short-name="Hag"/>
+    <book identifier="ZEC" number="38" long-name="Zechariah" short-name="Zec"/>
+    <book identifier="MAL" number="39" long-name="Malachi" short-name="Mal"/>
+    <book identifier="MAT" number="40" long-name="Matthew" short-name="Mat"/>
+    <book identifier="MRK" number="41" long-name="Mark" short-name="Mrk"/>
+    <book identifier="LUK" number="42" long-name="Luke" short-name="Luk"/>
+    <book identifier="JHN" number="43" long-name="John" short-name="Jhn"/>
+    <book identifier="ACT" number="44" long-name="Acts" short-name="Act"/>
+    <book identifier="ROM" number="45" long-name="Romans" short-name="Rom"/>
+    <book identifier="CO1" number="46" long-name="1 Corinthians" short-name="1 Cor"/>
+    <book identifier="CO2" number="47" long-name="2 Corinthians" short-name="2 Cor"/>
+    <book identifier="GAL" number="48" long-name="Galatians" short-name="Gal"/>
+    <book identifier="EPH" number="49" long-name="Ephesians" short-name="Eph"/>
+    <book identifier="PHP" number="50" long-name="Philippians" short-name="Php"/>
+    <book identifier="COL" number="51" long-name="Colossians" short-name="Col"/>
+    <book identifier="TH1" number="52" long-name="1 Thessalonians" short-name="1 Thess"/>
+    <book identifier="TH2" number="53" long-name="2 Thessalonians" short-name="2 Thess"/>
+    <book identifier="TI1" number="54" long-name="1 Timothy" short-name="1 Tim"/>
+    <book identifier="TI2" number="55" long-name="2 Timothy" short-name="2 Tim"/>
+    <book identifier="TIT" number="56" long-name="Titus" short-name="Tit"/>
+    <book identifier="PHM" number="57" long-name="Philemon" short-name="Phm"/>
+    <book identifier="HEB" number="58" long-name="Hebrews" short-name="Heb"/>
+    <book identifier="JAM" number="59" long-name="James" short-name="Jam"/>
+    <book identifier="PE1" number="60" long-name="1 Peter" short-name="1 Pet"/>
+    <book identifier="PE2" number="61" long-name="2 Peter" short-name="2 Pet"/>
+    <book identifier="JN1" number="62" long-name="1 John" short-name="1 Jn"/>
+    <book identifier="JN2" number="63" long-name="2 John" short-name="2 Jn"/>
+    <book identifier="JN3" number="64" long-name="3 John" short-name="3 Jn"/>
+    <book identifier="JDE" number="65" long-name="Jude" short-name="Jud"/>
+    <book identifier="REV" number="66" long-name="Revelation" short-name="Rev"/>
+  </bible-books>
+</vpl2haggai1-job>
