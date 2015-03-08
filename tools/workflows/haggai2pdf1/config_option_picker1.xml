@@ -43,6 +43,10 @@ along with haggai2pdf1 workflow. If not, see <http://www.gnu.org/licenses/>.
       <display-name>haggai2latex6</display-name>
       <description>DIN A4 two column layout with separator line and separator lines at top and bottom, no chapter or verse numbers.</description>
     </option>
+    <option id="haggai2latex7.xsl">
+      <display-name>haggai2latex7</display-name>
+      <description>Invoice (5.5x8.5 inches) two column layout with separator line and framed text, chapter numbers as initials, verse numbers keyed to verse markers, footnotes, running headers, English hyphenation.</description>
+    </option>
     <option id="haggai2latex8.xsl">
       <display-name>haggai2latex8</display-name>
       <description>DIN A5 two column layout with separator line and separator lines at top and bottom, chapter numbers as initials, verse numbers keyed to verse markers, footnotes span over columns, running headers.</description>

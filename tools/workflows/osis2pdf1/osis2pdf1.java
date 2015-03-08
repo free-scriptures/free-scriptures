@@ -268,6 +268,55 @@ public class osis2pdf1
                 System.exit(-1);
             }
         }
+        else if (backend.equalsIgnoreCase("xelatex") == true)
+        {
+            builder = null;
+
+            if (args.length >= 3)
+            {
+                // transformation-file txtreplace1-replacement-dictionary out-directory
+
+                if (args.length >= 5)
+                {
+                    builder = new ProcessBuilder("java", "haggai2pdf2", haggaiFile.getAbsolutePath(), args[2], args[3], args[4]);
+                }
+                else if (args.length == 4)
+                {
+                    builder = new ProcessBuilder("java", "haggai2pdf2", haggaiFile.getAbsolutePath(), args[2], args[3]);
+                }
+                else if (args.length == 3)
+                {
+                    builder = new ProcessBuilder("java", "haggai2pdf2", haggaiFile.getAbsolutePath(), args[2]);
+                }
+            }
+            else
+            {
+                builder = new ProcessBuilder("java", "haggai2pdf2", haggaiFile.getAbsolutePath());
+            }
+
+            builder.directory(new File(programPath + ".." + File.separator + "haggai2pdf2"));
+            builder.redirectErrorStream(true);
+
+            try
+            {
+                Process process = builder.start();
+                Scanner scanner = new Scanner(process.getInputStream()).useDelimiter("\n");
+
+                while (scanner.hasNext() == true)
+                {
+                    String line = scanner.next();
+
+                    System.out.println(line);
+                }
+
+                scanner.close();
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+                System.exit(-1);
+            }
+        }
         else
         {
             System.out.println("osis2pdf1 workflow: Backend '" + backend + "' isn't supported.");

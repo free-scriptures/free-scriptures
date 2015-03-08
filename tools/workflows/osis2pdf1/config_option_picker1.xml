@@ -23,5 +23,9 @@ along with osis2pdf1 workflow. If not, see <http://www.gnu.org/licenses/>.
       <display-name>pdflatex</display-name>
       <description>pdflatex backend.</description>
     </option>
+    <option id="xelatex">
+      <display-name>xelatex</display-name>
+      <description>xelatex backend for support of common font formats and UTF-8.</description>
+    </option>
   </options>
 </option-picker1-config>
