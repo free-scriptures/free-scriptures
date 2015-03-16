@@ -50,11 +50,13 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
     </html>
   </xsl:template>
   <xsl:template match="BIBLEBOOK">
-    <xsl:apply-templates select="CHAPTER"/>
+    <div class="biblebook">
+      <xsl:apply-templates select="CHAPTER"/>
+    </div>
   </xsl:template>
   <xsl:template match="CHAPTER">
-    <div>
-      <h2><xsl:value-of select="../@bname"/><xsl:text>&#x20;</xsl:text><xsl:value-of select="@cnumber"/></h2>
+    <div class="chapter">
+      <h2><span class="bname"><xsl:value-of select="../@bname"/></span><xsl:text>&#x20;</xsl:text><span class="cnumber"><xsl:value-of select="@cnumber"/></span></h2>
       <div>
         <xsl:apply-templates select="VERSE | PARAGRAPH"/>
       </div>
@@ -66,18 +68,20 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
     </p>
   </xsl:template>
   <xsl:template match="VERSE">
-    <xsl:choose>
-      <xsl:when test="local-name(parent::*)='PARAGRAPH'">
-        <a name="verse_{../../../@bnumber}_{../../@cnumber}_{@vnumber}" id="verse_{../../../@bnumber}_{../../@cnumber}_{@vnumber}"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <a name="verse_{../../@bnumber}_{../@cnumber}_{@vnumber}" id="verse_{../../@bnumber}_{../@cnumber}_{@vnumber}"/>
-      </xsl:otherwise>
-    </xsl:choose>
-    <sup>
-      <xsl:value-of select="@vnumber"/>
-    </sup>
-    <xsl:apply-templates/>
+    <span class="verse">
+      <xsl:choose>
+        <xsl:when test="local-name(parent::*)='PARAGRAPH'">
+          <a name="verse_{../../../@bnumber}_{../../@cnumber}_{@vnumber}" id="verse_{../../../@bnumber}_{../../@cnumber}_{@vnumber}"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <a name="verse_{../../@bnumber}_{../@cnumber}_{@vnumber}" id="verse_{../../@bnumber}_{../@cnumber}_{@vnumber}"/>
+        </xsl:otherwise>
+      </xsl:choose>
+      <sup>
+        <span class="vnumber"><xsl:value-of select="@vnumber"/></span>
+      </sup>
+      <xsl:apply-templates/>
+    </span>
     <xsl:text>&#x20;</xsl:text>
   </xsl:template>
   <xsl:template match="VERSE//text()">
