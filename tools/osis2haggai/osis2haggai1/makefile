@@ -16,9 +16,7 @@
 
 
 
-PREFIX ?= /usr/local
-BINDIR ?= ${PREFIX}/bin
-.PHONY: osis2haggai1 install clean
+.PHONY: osis2haggai1 clean
 
 
 
@@ -33,17 +31,9 @@ OSISProcessor.class: OSISProcessor.java
 osis2haggai1.class: osis2haggai1.java ConfigProcessor.class OSISProcessor.class
 	javac osis2haggai1.java
 
-${BINDIR}:
-	mkdir -p ${BINDIR}
-
-install: osis2haggai1 ${BINDIR}
-	mkdir -p ${BINDIR}/html2epub1
-	cp ConfigProcessor.class ${BINDIR}/osis2haggai1
-	cp OSISProcessor.class ${BINDIR}/osis2haggai1
-	cp osis2haggai1.class ${BINDIR}/osis2haggai1
-
 clean:
 	rm -f osis2haggai1.class
 	rm -f OSISProcessor.class
 	rm -f ConfigProcessor.class
+	rm -f StructureStackElement.class
 

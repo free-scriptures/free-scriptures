@@ -56,7 +56,26 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
   </xsl:template>
   <xsl:template match="CHAPTER">
     <div class="chapter">
-      <h2><span class="bname"><xsl:value-of select="../@bname"/></span><xsl:text>&#x20;</xsl:text><span class="cnumber"><xsl:value-of select="@cnumber"/></span></h2>
+      <h2>
+        <span class="bname">
+          <xsl:choose>
+            <xsl:when test="../@bname">
+              <xsl:value-of select="../@bname"/>
+            </xsl:when>
+            <xsl:when test="../@bsname">
+              <xsl:value-of select="../@bsname"/>
+            </xsl:when>
+            <xsl:when test="../CAPTION">
+              <xsl:value-of select="../CAPTION"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="./@bnumber"/><xsl:text>. Book</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+        </span>
+        <xsl:text>&#x20;</xsl:text>
+        <span class="cnumber"><xsl:value-of select="@cnumber"/></span>
+      </h2>
       <ol>
         <xsl:apply-templates select="VERSE | PARAGRAPH"/>
       </ol>

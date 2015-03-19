@@ -30,6 +30,9 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
                 <xsl:when test="./@bname">
                   <xsl:value-of select="./@bname"/>
                 </xsl:when>
+                <xsl:when test="./CAPTION">
+                  <xsl:value-of select="./CAPTION"/>
+                </xsl:when>
                 <xsl:when test="./@bsname">
                   <xsl:value-of select="./@bsname"/>
                 </xsl:when>
