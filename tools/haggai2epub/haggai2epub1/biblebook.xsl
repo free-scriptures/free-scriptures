@@ -69,33 +69,37 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
             <hr/>
           </div>
           <xsl:apply-templates select="CHAPTER"/>
-          <div id="id_footnotes">
-            <h2>Footnotes</h2>
-            <xsl:for-each select="./CHAPTER">
-              <div id="id_footnotes_{./@cnumber}">
-                <h3>Chapter <xsl:value-of select="./@cnumber"/></h3>
-                <p style="text-align: justify;">
-                  <xsl:for-each select="./PARAGRAPH/VERSE/NOTE | ./VERSE/NOTE">
-                    <xsl:choose>
-                      <xsl:when test="../../../@cnumber">
-                        <a><xsl:attribute name="id"><xsl:text>footnote_</xsl:text><xsl:value-of select="../../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER//VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute>[</a>
-                        <a><xsl:attribute name="href"><xsl:text>#footnotemark_</xsl:text><xsl:value-of select="../../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER//VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute><xsl:number count="//CHAPTER//VERSE/NOTE" level="any" from="//CHAPTER"/></a>]
-                      </xsl:when>
-                      <xsl:when test="../../@cnumber">
-                        <a><xsl:attribute name="id"><xsl:text>footnote_</xsl:text><xsl:value-of select="../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute>[</a>
-                        <a><xsl:attribute name="href"><xsl:text>#footnotemark_</xsl:text><xsl:value-of select="../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></a>]
-                      </xsl:when>
-                    </xsl:choose>
-                    <xsl:value-of select="."/><xsl:text> </xsl:text>
-                  </xsl:for-each>
-                </p>
+          <xsl:if test="//CHAPTER//VERSE/NOTE">
+            <div id="id_footnotes">
+              <h2>Footnotes</h2>
+              <xsl:for-each select="./CHAPTER">
+                <xsl:if test=".//VERSE/NOTE">
+                  <div id="id_footnotes_{./@cnumber}">
+                    <h3>Chapter <xsl:value-of select="./@cnumber"/></h3>
+                    <p style="text-align: justify;">
+                      <xsl:for-each select="./PARAGRAPH/VERSE/NOTE | ./VERSE/NOTE">
+                        <xsl:choose>
+                          <xsl:when test="../../../@cnumber">
+                            <a><xsl:attribute name="id"><xsl:text>footnote_</xsl:text><xsl:value-of select="../../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER//VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute>[</a>
+                            <a><xsl:attribute name="href"><xsl:text>#footnotemark_</xsl:text><xsl:value-of select="../../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER//VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute><xsl:number count="//CHAPTER//VERSE/NOTE" level="any" from="//CHAPTER"/></a>]
+                          </xsl:when>
+                          <xsl:when test="../../@cnumber">
+                            <a><xsl:attribute name="id"><xsl:text>footnote_</xsl:text><xsl:value-of select="../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute>[</a>
+                            <a><xsl:attribute name="href"><xsl:text>#footnotemark_</xsl:text><xsl:value-of select="../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></a>]
+                          </xsl:when>
+                        </xsl:choose>
+                        <xsl:value-of select="."/><xsl:text> </xsl:text>
+                      </xsl:for-each>
+                    </p>
+                  </div>
+                </xsl:if>
+              </xsl:for-each>
+              <div style="text-align: center;">
+                <a href="#id_chapters">Chapters</a><br/>
+                <a href="title.xhtml#id_books">Books</a>
               </div>
-            </xsl:for-each>
-            <div style="text-align: center;">
-              <a href="#id_chapters">Chapters</a><br/>
-              <a href="title.xhtml#id_books">Books</a>
             </div>
-          </div>
+          </xsl:if>
         </div>
       </body>
     </html>
