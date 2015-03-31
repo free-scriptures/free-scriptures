@@ -28,7 +28,21 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
       </head>
       <body>
         <div>
-          <h1><xsl:value-of select="/XMLBIBLE/@biblename"/></h1>
+          <h1>
+            <xsl:choose>
+              <xsl:when test="/XMLBIBLE/INFORMATION/title">
+                <xsl:value-of select="/XMLBIBLE/INFORMATION/title"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="/XMLBIBLE/@biblename"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </h1>
+          <xsl:if test="/XMLBIBLE/INFORMATION/rights">
+            <p>
+              <xsl:value-of select="/XMLBIBLE/INFORMATION/rights"/>
+            </p>
+          </xsl:if>
           <div id="id_books">
             <h2>Books</h2>
             <ul>

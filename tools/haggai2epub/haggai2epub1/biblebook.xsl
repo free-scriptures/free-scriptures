@@ -69,6 +69,9 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
             <hr/>
           </div>
           <xsl:apply-templates select="CHAPTER"/>
+          <div style="text-align: center;">
+            <a href="title.xhtml#id_books">Books</a>
+          </div>
           <xsl:if test="//CHAPTER//VERSE/NOTE">
             <div id="id_footnotes">
               <h2>Footnotes</h2>
