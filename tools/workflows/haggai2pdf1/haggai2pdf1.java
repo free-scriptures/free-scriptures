@@ -258,6 +258,50 @@ public class haggai2pdf1
         }
 
 
+        builder = new ProcessBuilder("java", "xml_prepare4latex1", haggaiFile.getAbsolutePath(), programPath + ".." + File.separator + ".." + File.separator + "latex" + File.separator + "xml_prepare4latex1" + File.separator + "entities" + File.separator + "config.xml", tempDirectory.getAbsolutePath() + File.separator + "haggai_prepared.xml");
+        builder.directory(new File(programPath + ".." + File.separator + ".." + File.separator + "latex" + File.separator + "xml_prepare4latex1"));
+        builder.redirectErrorStream(true);
+
+        try
+        {
+            Process process = builder.start();
+            Scanner scanner = new Scanner(process.getInputStream()).useDelimiter("\n");
+
+            while (scanner.hasNext() == true)
+            {
+                String line = scanner.next();
+                System.out.println(line);
+            }
+
+            scanner.close();
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        haggaiFile = new File(tempDirectory.getAbsolutePath() + File.separator + "haggai_prepared.xml");
+
+        if (haggaiFile.exists() != true)
+        {
+            System.out.print("haggai2pdf1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' doesn't exist, but should by now.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiFile.isFile() != true)
+        {
+            System.out.print("haggai2pdf1 workflow: Path '" + haggaiFile.getAbsolutePath() + "' isn't a file.\n");
+            System.exit(-1);
+        }
+
+        if (haggaiFile.canRead() != true)
+        {
+            System.out.print("haggai2pdf1 workflow: Haggai XML file '" + haggaiFile.getAbsolutePath() + "' isn't readable.\n");
+            System.exit(-1);
+        }
+
+
         File transformationFile = null;
 
         if (args.length >= 2)
