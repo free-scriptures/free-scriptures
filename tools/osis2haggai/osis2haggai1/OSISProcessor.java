@@ -136,6 +136,7 @@ class OSISProcessor
                     }
                  
                     boolean isBook = false;
+                    boolean outputEndElement = false;
 
                     if (fullElementName.equalsIgnoreCase("osisText") == true)
                     {
@@ -432,6 +433,21 @@ class OSISProcessor
                         
                         }
                     }
+                    else if (fullElementName.equalsIgnoreCase("hi") == true)
+                    {
+                        Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
+                        
+                        if (attributeType != null)
+                        {
+                            String type = attributeType.getValue();
+                            
+                            if (type.equals("italic") == true)
+                            {
+                                writer.write("<STYLE fs=\"italic\">");
+                                outputEndElement = true;
+                            }
+                        }
+                    }
                     else if (fullElementName.equalsIgnoreCase("note") == true &&
                              readingVerse == true)
                     {
@@ -500,7 +516,7 @@ class OSISProcessor
                         }
                     }
                     
-                    structureStack.push(new StructureStackElement(fullElementName, isBook));
+                    structureStack.push(new StructureStackElement(fullElementName, isBook, outputEndElement));
                 }
                 else if (event.isEndElement() == true)
                 {
@@ -649,6 +665,18 @@ class OSISProcessor
                             writer.write("<!-- Paragraph ending within a verse. -->");
                         }
                     }
+                    else if (fullElementName.equals("hi") == true)
+                    {
+                        if (structureStack.empty() != true)
+                        {
+                            StructureStackElement currentElement = structureStack.peek();
+                            
+                            if (currentElement.GetOutputEndElement() == true)
+                            {
+                                writer.write("</STYLE>");
+                            }
+                        }
+                    }
                     else if (fullElementName.equalsIgnoreCase("note") == true &&
                              readingVerse == true)
                     {
@@ -736,23 +764,30 @@ class OSISProcessor
 
 class StructureStackElement
 {
-    public StructureStackElement(String element, boolean isBook)
+    public StructureStackElement(String element, boolean isBook, boolean outputEndElement)
     {
         this.element = element;
         this.isBook = isBook;
+        this.outputEndElement = outputEndElement;
     }
-    
+
     public String GetElement()
     {
         return this.element;
     }
-    
+
     public boolean GetIsBook()
     {
         return this.isBook;
     }
-    
+
+    public boolean GetOutputEndElement()
+    {
+        return this.outputEndElement;
+    }
+
     protected String element;
     protected boolean isBook;
+    protected boolean outputEndElement;
 }
 
