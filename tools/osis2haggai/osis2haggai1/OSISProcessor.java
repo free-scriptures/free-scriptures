@@ -109,6 +109,7 @@ class OSISProcessor
             boolean readingBook = false;
             boolean readingChapter = false;
             boolean readingVerse = false;
+            boolean readingNote = false;
             boolean readingTitle = false;
 
             int bookNumber = 0;
@@ -433,7 +434,9 @@ class OSISProcessor
                         
                         }
                     }
-                    else if (fullElementName.equalsIgnoreCase("hi") == true)
+                    else if (fullElementName.equalsIgnoreCase("hi") == true &&
+                             (readingVerse == true ||
+                              readingNote == true))
                     {
                         Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
                         
@@ -452,6 +455,8 @@ class OSISProcessor
                              readingVerse == true)
                     {
                         writer.write("<NOTE>");
+                        
+                        readingNote = true;
                         
                         Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
                         
@@ -665,7 +670,9 @@ class OSISProcessor
                             writer.write("<!-- Paragraph ending within a verse. -->");
                         }
                     }
-                    else if (fullElementName.equals("hi") == true)
+                    else if (fullElementName.equals("hi") == true &&
+                             (readingVerse == true ||
+                              readingNote == true))
                     {
                         if (structureStack.empty() != true)
                         {
@@ -678,9 +685,12 @@ class OSISProcessor
                         }
                     }
                     else if (fullElementName.equalsIgnoreCase("note") == true &&
-                             readingVerse == true)
+                             readingVerse == true &&
+                             readingNote == true)
                     {
                         writer.write("</NOTE>");
+                        
+                        readingNote = false;
                     }
                     
                     if (structureStack.empty() != true)

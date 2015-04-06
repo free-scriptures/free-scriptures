@@ -91,7 +91,8 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
                             <a><xsl:attribute name="href"><xsl:text>#footnotemark_</xsl:text><xsl:value-of select="../../@cnumber"/><xsl:text>_</xsl:text><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></xsl:attribute><xsl:number count="//CHAPTER/VERSE/NOTE" level="any" from="//CHAPTER"/></a>]
                           </xsl:when>
                         </xsl:choose>
-                        <xsl:value-of select="."/><xsl:text> </xsl:text>
+                        <xsl:apply-templates select="./text() | .//STYLE"/>
+                        <xsl:text> </xsl:text>
                       </xsl:for-each>
                     </p>
                   </div>
