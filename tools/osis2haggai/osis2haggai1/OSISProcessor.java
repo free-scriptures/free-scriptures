@@ -42,6 +42,7 @@ import java.util.Map;
 import java.util.HashMap;
 import javax.xml.stream.events.Characters;
 import java.util.Stack;
+import java.util.Iterator;
 
 
 
@@ -135,9 +136,10 @@ class OSISProcessor
                     {
                         fullElementName = elementName.getPrefix() + ":" + fullElementName;
                     }
-                 
+
+                    boolean isInOutput = true;
                     boolean isBook = false;
-                    boolean outputEndElement = false;
+                    String associatedAttributes = new String();
 
                     if (fullElementName.equalsIgnoreCase("osisText") == true)
                     {
@@ -434,30 +436,28 @@ class OSISProcessor
                         
                         }
                     }
-                    else if (fullElementName.equalsIgnoreCase("hi") == true &&
-                             (readingVerse == true ||
-                              readingNote == true))
-                    {
-                        Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
-                        
-                        if (attributeType != null)
-                        {
-                            String type = attributeType.getValue();
-                            
-                            if (type.equals("italic") == true)
-                            {
-                                writer.write("<STYLE fs=\"italic\">");
-                                outputEndElement = true;
-                            }
-                        }
-                    }
                     else if (fullElementName.equalsIgnoreCase("note") == true &&
                              readingVerse == true)
                     {
+                        for (int i = structureStack.size(); i > 0; i--)
+                        {
+                            StructureStackElement structureStackElement = structureStack.get(i - 1);
+                            
+                            if ((structureStackElement.GetElement().equals("seg") == true ||
+                                 structureStackElement.GetElement().equals("transChange") == true) &&
+                                structureStackElement.GetIsInOutput() == true)
+                            {
+                                // The style markup around the note never affects the text
+                                // within the note itself, so close it here and start it
+                                // after the note again.
+                                writer.write("</STYLE>");
+                            }
+                        }
+                    
                         writer.write("<NOTE>");
-                        
+
                         readingNote = true;
-                        
+
                         Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
                         
                         if (attributeType != null)
@@ -520,8 +520,70 @@ class OSISProcessor
                             continue;
                         }
                     }
-                    
-                    structureStack.push(new StructureStackElement(fullElementName, isBook, outputEndElement));
+                    else if (fullElementName.equalsIgnoreCase("hi") == true &&
+                             (readingVerse == true ||
+                              readingNote == true))
+                    {
+                        Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
+
+                        if (attributeType != null)
+                        {
+                            String attributeTypeString = attributeType.getValue();
+
+                            if (attributeTypeString.equals("italic") == true)
+                            {
+                                writer.write("<STYLE fs=\"italic\">");
+                            }
+                            else if (attributeTypeString.equals("super") == true)
+                            {
+                                writer.write("<STYLE fs=\"super\">");
+                            }
+                            else
+                            {
+                                isInOutput = false;
+                            }
+                        }
+                    }
+                    else if (fullElementName.equalsIgnoreCase("seg") == true)
+                    {
+                        Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
+
+                        if (attributeType != null)
+                        {
+                            String attributeTypeString = attributeType.getValue();
+
+                            if (attributeTypeString.equals("x-alternative") == true)
+                            {
+                                writer.write("<STYLE class=\"alternative\">");
+                                associatedAttributes = "class=\"alternative\"";
+                            }
+                            else
+                            {
+                                isInOutput = false;
+                            }
+                        }
+                    }
+                    else if (fullElementName.equalsIgnoreCase("transChange") == true)
+                    {
+                        Attribute attributeType = event.asStartElement().getAttributeByName(new QName("type"));
+
+                        if (attributeType != null)
+                        {
+                            String attributeTypeString = attributeType.getValue();
+
+                            if (attributeTypeString.equals("deleted") == true)
+                            {
+                                writer.write("<STYLE class=\"deleted\">");
+                                associatedAttributes = "class=\"deleted\"";
+                            }
+                            else
+                            {
+                                isInOutput = false;
+                            }
+                        }
+                    }
+
+                    structureStack.push(new StructureStackElement(fullElementName, isInOutput, isBook, associatedAttributes));
                 }
                 else if (event.isEndElement() == true)
                 {
@@ -670,7 +732,27 @@ class OSISProcessor
                             writer.write("<!-- Paragraph ending within a verse. -->");
                         }
                     }
-                    else if (fullElementName.equals("hi") == true &&
+                    else if (fullElementName.equalsIgnoreCase("note") == true &&
+                             readingVerse == true &&
+                             readingNote == true)
+                    {
+                        writer.write("</NOTE>");
+
+                        readingNote = false;
+
+                        for (int i = structureStack.size(); i > 0; i--)
+                        {
+                            StructureStackElement structureStackElement = structureStack.get(i - 1);
+                            
+                            if ((structureStackElement.GetElement().equals("seg") == true ||
+                                 structureStackElement.GetElement().equals("transChange") == true) &&
+                                structureStackElement.GetIsInOutput() == true)
+                            {
+                                writer.write("<STYLE " + structureStackElement.GetAssociatedAttributes() + ">");
+                            }
+                        }
+                    }
+                    else if (fullElementName.equalsIgnoreCase("hi") == true &&
                              (readingVerse == true ||
                               readingNote == true))
                     {
@@ -678,19 +760,35 @@ class OSISProcessor
                         {
                             StructureStackElement currentElement = structureStack.peek();
                             
-                            if (currentElement.GetOutputEndElement() == true)
+                            if (currentElement.GetIsInOutput() == true)
                             {
                                 writer.write("</STYLE>");
                             }
                         }
                     }
-                    else if (fullElementName.equalsIgnoreCase("note") == true &&
-                             readingVerse == true &&
-                             readingNote == true)
+                    else if (fullElementName.equalsIgnoreCase("seg") == true)
                     {
-                        writer.write("</NOTE>");
-                        
-                        readingNote = false;
+                        if (structureStack.empty() != true)
+                        {
+                            StructureStackElement currentElement = structureStack.peek();
+                            
+                            if (currentElement.GetIsInOutput() == true)
+                            {
+                                writer.write("</STYLE>");
+                            }
+                        }
+                    }
+                    else if (fullElementName.equalsIgnoreCase("transChange") == true)
+                    {
+                        if (structureStack.empty() != true)
+                        {
+                            StructureStackElement currentElement = structureStack.peek();
+                            
+                            if (currentElement.GetIsInOutput() == true)
+                            {
+                                writer.write("</STYLE>");
+                            }
+                        }
                     }
                     
                     if (structureStack.empty() != true)
@@ -774,30 +872,37 @@ class OSISProcessor
 
 class StructureStackElement
 {
-    public StructureStackElement(String element, boolean isBook, boolean outputEndElement)
+    public StructureStackElement(String element, boolean isInOutput, boolean isBook, String associatedAttributes)
     {
         this.element = element;
+        this.isInOutput = isInOutput;
         this.isBook = isBook;
-        this.outputEndElement = outputEndElement;
+        this.associatedAttributes = associatedAttributes;
     }
-
+    
     public String GetElement()
     {
         return this.element;
     }
-
+    
+    public boolean GetIsInOutput()
+    {
+        return this.isInOutput;
+    }
+    
     public boolean GetIsBook()
     {
         return this.isBook;
     }
-
-    public boolean GetOutputEndElement()
+    
+    public String GetAssociatedAttributes()
     {
-        return this.outputEndElement;
+        return this.associatedAttributes;
     }
-
+    
     protected String element;
+    protected boolean isInOutput;
     protected boolean isBook;
-    protected boolean outputEndElement;
+    protected String associatedAttributes;
 }
 

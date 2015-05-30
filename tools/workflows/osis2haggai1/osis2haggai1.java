@@ -328,7 +328,7 @@ public class osis2haggai1
             System.exit(-1);
         }
 
-        File haggaiSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "haggai_20130620.xsd");
+        File haggaiSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "haggai_20150516.xsd");
         
         if (haggaiSchema.exists() != true)
         {

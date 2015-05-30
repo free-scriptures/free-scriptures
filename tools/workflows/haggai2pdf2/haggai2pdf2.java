@@ -120,7 +120,7 @@ public class haggai2pdf2
         // the parent directory of the input Haggai XML file as a suggestion.
         File outDirectory = haggaiFile.getAbsoluteFile().getParentFile();
 
-        File haggaiSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "haggai_20130620.xsd");
+        File haggaiSchema = new File(programPath + ".." + File.separator + ".." + File.separator + "resources" + File.separator + "free-scriptures.org" + File.separator + "haggai_20150516.xsd");
         
         if (haggaiSchema.exists() != true)
         {

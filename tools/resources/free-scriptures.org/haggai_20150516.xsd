@@ -44,7 +44,7 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
       <xsd:documentation xml:lang="en">
         The root element of a Haggai XML bible module.
       </xsd:documentation>
-      <xsd:appinfo>haggai_20130620</xsd:appinfo>
+      <xsd:appinfo>haggai_20150516</xsd:appinfo>
     </xsd:annotation>
     <xsd:complexType>
       <xsd:sequence>
@@ -366,7 +366,7 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
         <xsd:element ref="STYLE"/>
         <xsd:element ref="BR"/>
       </xsd:choice>
-      <xsd:attribute name="id" type="TStyleExternClass" use="optional"/>
+      <xsd:attribute name="class" type="TStyleExternClass" use="optional"/>
       <xsd:attribute name="fs" type="TStyleFix" use="optional"/>
     </xsd:complexType>
   </xsd:element>
@@ -526,7 +526,7 @@ along with Free Scriptures. If not, see <http://www.gnu.org/licenses/>.
   </xsd:element>
   <xsd:simpleType name="TStyleExternClass">
     <xsd:restriction base="xsd:string">
-      <xsd:pattern value="cl:[a-zA-Z0-9]*"/>
+      <xsd:pattern value="[a-zA-Z0-9]*"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="ModuleStatus">

@@ -27,5 +27,9 @@ along with haggai2pdf2 workflow. If not, see <http://www.gnu.org/licenses/>.
       <display-name>haggai2xelatex2</display-name>
       <description>DIN A4, title page, right/left pages, footnotes, running headers, support for Hebrew and Greek characters, the Linux Libertine font from http://www.linuxlibertine.org/ in the OpenType format needs to be installed. German hyphenation. Source text needs to use German typograhpic „“ curly quotes instead of " typewriter quotation marks.</description>
     </option>
+    <option id="haggai2xelatex3.xsl">
+      <display-name>haggai2xelatex3</display-name>
+      <description>DIN A5, title page, right/left pages, footnotes, running headers, support for Hebrew and Greek characters, the Linux Libertine font from http://www.linuxlibertine.org/ in the OpenType format needs to be installed. German hyphenation. Source text needs to use German typograhpic „“ curly quotes instead of " typewriter quotation marks.</description>
+    </option>
   </options>
 </option-picker1-config>
