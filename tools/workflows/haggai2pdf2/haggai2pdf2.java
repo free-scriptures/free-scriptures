@@ -48,6 +48,16 @@ public class haggai2pdf2
 
         String programPath = haggai2pdf2.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
+        try
+        {
+            programPath = new File(programPath).getCanonicalPath() + File.separator;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
         File haggaiFile = null;
 
         if (args.length >= 1)

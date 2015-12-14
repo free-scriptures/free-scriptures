@@ -58,6 +58,16 @@ public class haggai2epub1
 
         String programPath = haggai2epub1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
+        try
+        {
+            programPath = new File(programPath).getCanonicalPath() + File.separator;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
         File haggaiFile = null;
 
         if (args.length >= 1)

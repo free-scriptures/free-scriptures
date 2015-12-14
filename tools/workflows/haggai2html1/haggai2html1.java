@@ -47,6 +47,16 @@ public class haggai2html1
 
         String programPath = haggai2html1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
+        try
+        {
+            programPath = new File(programPath).getCanonicalPath() + File.separator;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
         File haggaiFile = null;
 
         if (args.length >= 1)

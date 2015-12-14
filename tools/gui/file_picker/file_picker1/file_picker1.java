@@ -41,6 +41,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.FileNotFoundException;
 import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 
 
 
@@ -54,10 +55,19 @@ public class file_picker1
                          "under certain conditions. See the GNU Affero General Public\n" +
                          "License 3 or any later version for details. Also, see the source code\n" +
                          "repository https://github.com/publishing-systems/automated_digital_publishing/\n" +
-                         "or the project website http://www.publishing-systems.org.\n\n");
-
+                         "and the project website http://www.publishing-systems.org.\n\n");
 
         String programPath = file_picker1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+
+        try
+        {
+            programPath = new File(programPath).getCanonicalPath() + File.separator;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
 
         File configFile = null;
 

@@ -47,14 +47,24 @@ public class setup1
                          "License 3 or any later version for details. Also, see the source code\n" +
                          "repository https://github.com/free-scriptures/free-scriptures/\n" +
                          "or the project website http://www.free-scriptures.org.\n\n");
-    
+
         String programPath = setup1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
-    
+
+        try
+        {
+            programPath = new File(programPath).getCanonicalPath() + File.separator;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
 
         CopyEntitiesXHTML_1_0_Strict(programPath, ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities");
         CopyEntitiesXHTML_1_0_Strict(programPath, ".." + File.separator + "xml_split" + File.separator + "xml_split1" + File.separator + "entities");
         CopyEntitiesXHTML_1_0_Strict(programPath, ".." + File.separator + "html2epub" + File.separator + "html2epub1");
-    
+
         CopyEntitiesXHTML_1_1(programPath, ".." + File.separator + "schemavalidator" + File.separator + "schemavalidator1" + File.separator + "entities");
         CopyEntitiesXHTML_1_1(programPath, ".." + File.separator + "xml_split" + File.separator + "xml_split1" + File.separator + "entities");
 
@@ -146,7 +156,7 @@ public class setup1
         {
             to = to.substring(0, new String(File.separator).length());
         }
-        
+
         if (to.endsWith("/") != true &&
             to.endsWith("\\") != true &&
             to.endsWith(File.separator) != true)
@@ -166,25 +176,25 @@ public class setup1
         {
             System.exit(-1);
         }
-        
+
         if (setup1.CopyFile(new File(programPath + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml-datatypes-1.mod"),
                             new File(programPath + to + "xhtml-datatypes-1.mod")) != 0)
         {
             System.exit(-1);
         }
-        
+
         if (setup1.CopyFile(new File(programPath + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml-framework-1.mod"),
                             new File(programPath + to + "xhtml-framework-1.mod")) != 0)
         {
             System.exit(-1);
         }
-        
+
         if (setup1.CopyFile(new File(programPath + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml-qname-1.mod"),
                             new File(programPath + to + "xhtml-qname-1.mod")) != 0)
         {
             System.exit(-1);
         }
-        
+
         if (setup1.CopyFile(new File(programPath + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml-events-1.mod"),
                             new File(programPath + to + "xhtml-events-1.mod")) != 0)
         {
@@ -220,7 +230,7 @@ public class setup1
         {
             System.exit(-1);
         }
-        
+
         if (setup1.CopyFile(new File(programPath + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml-special.ent"),
                             new File(programPath + to + "xhtml-special.ent")) != 0)
         {
@@ -256,7 +266,7 @@ public class setup1
         {
             System.exit(-1);
         }
-        
+
         if (setup1.CopyFile(new File(programPath + ".." + File.separator + "resources" + File.separator + "w3c" + File.separator + "xhtml-hypertext-1.mod"),
                             new File(programPath + to + "xhtml-hypertext-1.mod")) != 0)
         {
@@ -382,7 +392,7 @@ public class setup1
         {
             System.exit(-1);
         }
-        
+
         return 0;
     }
 
@@ -394,7 +404,7 @@ public class setup1
         {
             programPath += File.separator;
         }
-        
+
         if (to.startsWith("/") == true)
         {
             to = to.substring(0, new String("/").length());
@@ -407,7 +417,7 @@ public class setup1
         {
             to = to.substring(0, new String(File.separator).length());
         }
-        
+
         if (to.endsWith("/") != true &&
             to.endsWith("\\") != true &&
             to.endsWith(File.separator) != true)
@@ -439,7 +449,7 @@ public class setup1
         {
             programPath += File.separator;
         }
-        
+
         if (to.startsWith("/") == true)
         {
             to = to.substring(0, new String("/").length());
@@ -452,7 +462,7 @@ public class setup1
         {
             to = to.substring(0, new String(File.separator).length());
         }
-        
+
         if (to.endsWith("/") != true &&
             to.endsWith("\\") != true &&
             to.endsWith(File.separator) != true)
@@ -682,13 +692,13 @@ public class setup1
             System.out.println("setup1: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' doesn't exist.");
             return -1;
         }
-        
+
         if (from.isFile() != true)
         {
             System.out.println("setup1: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't a file.");
             return -2;
         }
-        
+
         if (from.canRead() != true)
         {
             System.out.println("setup1: Can't copy '" + from.getAbsolutePath() + "' to '" + to.getAbsolutePath() + "' because '" + from.getAbsolutePath() + "' isn't readable.");
@@ -701,7 +711,7 @@ public class setup1
         try
         {
             to.createNewFile();
-        
+
             BufferedReader reader = new BufferedReader(
                                     new InputStreamReader(
                                     new FileInputStream(from),
@@ -717,7 +727,7 @@ public class setup1
                 writer.write(buffer, 0, charactersRead);
                 charactersRead = reader.read(buffer, 0, buffer.length);
             }
-            
+
             writer.close();
             reader.close();
         }
@@ -736,7 +746,7 @@ public class setup1
             ex.printStackTrace();
             System.exit(-21);
         }
-    
+
         return 0;
     }
 }

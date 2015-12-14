@@ -1,4 +1,4 @@
-/* Copyright (C) 2014  Stephan Kreutzer
+/* Copyright (C) 2014-2015  Stephan Kreutzer
  *
  * This file is part of xsltransformator1.
  *
@@ -60,12 +60,13 @@ public class xsltransformator1
 {
     public static void main(String args[])
     {
-        System.out.print("xsltransformator1  Copyright (C) 2014  Stephan Kreutzer\n" +
+        System.out.print("xsltransformator1  Copyright (C) 2014-2015  Stephan Kreutzer\n" +
                          "This program comes with ABSOLUTELY NO WARRANTY.\n" +
                          "This is free software, and you are welcome to redistribute it\n" +
                          "under certain conditions. See the GNU Affero General Public\n" +
                          "License 3 or any later version for details. Also, see the source code\n" +
-                         "repository: https://github.com/publishing-systems/automated_digital_publishing/\n\n");
+                         "repository https://github.com/publishing-systems/automated_digital_publishing/\n" +
+                         "and the project website http://www.publishing-systems.org.\n\n");
 
         if (args.length < 3)
         {
@@ -78,8 +79,18 @@ public class xsltransformator1
 
         String programPath = xsltransformator1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
+        try
+        {
+            programPath = new File(programPath).getCanonicalPath() + File.separator;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
         File entitiesDirectory = new File(programPath + "entities");
-        
+
         if (entitiesDirectory.exists() != true)
         {
             if (entitiesDirectory.mkdir() != true)
@@ -215,7 +226,7 @@ class EntityResolverLocal implements EntityResolver
         
         if (success == true)
         {
-            this.configFile = new File(this.entitiesDirectory.getAbsolutePath() + "/config.xml");
+            this.configFile = new File(this.entitiesDirectory.getAbsolutePath() + File.separator + "config.xml");
             success = this.configFile.exists();
         }
         
@@ -332,6 +343,10 @@ class EntityResolverLocal implements EntityResolver
                     }
                 }
             }
+        }
+        else
+        {
+            this.configFile = null;
         }
     }
 

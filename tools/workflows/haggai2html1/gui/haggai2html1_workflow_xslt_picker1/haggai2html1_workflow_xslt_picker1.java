@@ -96,6 +96,16 @@ public class haggai2html1_workflow_xslt_picker1
 
         this.programPath = haggai2html1_workflow_xslt_picker1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
+        try
+        {
+            this.programPath = new File(this.programPath).getCanonicalPath() + File.separator;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
         this.optionsList = new ArrayList<ChooseOption>();
 
         readConfigurationFile(configFile);
