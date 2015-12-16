@@ -41,6 +41,8 @@ import org.xml.sax.SAXException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
 
 
 
@@ -56,11 +58,17 @@ public class haggai2epub1
                          "repository https://github.com/free-scriptures/free-scriptures/\n" +
                          "and the project website http://www.free-scriptures.org.\n\n");
 
-        String programPath = haggai2epub1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+        String programPath = haggai2epub1.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
         try
         {
             programPath = new File(programPath).getCanonicalPath() + File.separator;
+            programPath = URLDecoder.decode(programPath, "UTF-8");
+        }
+        catch (UnsupportedEncodingException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
         }
         catch (IOException ex)
         {

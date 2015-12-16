@@ -38,6 +38,8 @@ import org.w3c.dom.NamedNodeMap;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
 
 
 
@@ -94,11 +96,17 @@ public class haggai2html1_workflow_xslt_picker1
     {
         super("Select Transformator");
 
-        this.programPath = haggai2html1_workflow_xslt_picker1.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+        this.programPath = haggai2html1_workflow_xslt_picker1.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
         try
         {
             this.programPath = new File(this.programPath).getCanonicalPath() + File.separator;
+            this.programPath = URLDecoder.decode(this.programPath, "UTF-8");
+        }
+        catch (UnsupportedEncodingException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
         }
         catch (IOException ex)
         {

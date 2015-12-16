@@ -31,6 +31,8 @@ import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
 import java.io.IOException;
 import javax.xml.XMLConstants;
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
 
 
 
@@ -59,18 +61,37 @@ class osis2haggai1
 
         File inOSISFile = configuration.GetInOSISFile();
         File outHaggaiFile = configuration.GetOutHaggaiFile();
-        
+
         if (configuration.GetOSISSchemaValidation() == true)
         {
             // Note that a syntactical check isn't sufficient for OSIS, since
             // OSIS is based upon the marker concept, so there would be also a
             // semantical check needed.
-            
+
             System.out.print("osis2haggai1: Validating '" + inOSISFile.getAbsolutePath() + "'.\n");
-            
-            File osisSchema = new File(osis2haggai1.class.getProtectionDomain().getCodeSource().getLocation().getFile() +
-                                       "osisCore.2.1.1.xsd");
-                 
+
+            String osisSchemaPath = osis2haggai1.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
+            try
+            {
+                osisSchemaPath = new File(osisSchemaPath).getCanonicalPath() + File.separator;
+                osisSchemaPath = URLDecoder.decode(osisSchemaPath, "UTF-8");
+            }
+            catch (UnsupportedEncodingException ex)
+            {
+                ex.printStackTrace();
+                System.exit(-1);
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+                System.exit(-1);
+            }
+
+            osisSchemaPath += "osisCore.2.1.1.xsd";
+
+            File osisSchema = new File(osisSchemaPath);
+
             if (osisSchema.exists() != true)
             {
                 osisSchema = null;
@@ -91,7 +112,7 @@ class osis2haggai1
                     osisSchema = null;
                 }
             }
-            
+
             if (osisSchema != null)
             {
                 try
